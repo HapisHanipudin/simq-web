@@ -1,1 +1,5 @@
-<template></template>
+<template>
+  <Jumbotron />
+  <Visimisi />
+  <About />
+</template>

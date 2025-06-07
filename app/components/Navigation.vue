@@ -4,25 +4,20 @@ import type { NavigationMenuItem, AccordionItem } from "@nuxt/ui";
 const navItems = ref<NavigationMenuItem[][]>([
   [
     {
-      label: "Website SIMQ",
-      to: "/",
-    },
-  ],
-  [
-    {
       label: "Beranda",
       icon: "i-lucide-home",
+      to: "/",
       children: [
         {
           label: "Visi, Misi, Tujuan",
           icon: "i-lucide-target",
-          to: "/beranda/visi-misi-tujuan",
+          to: "/visi-misi",
           description: "Menjelaskan arah dan tujuan utama SIMQ.",
         },
         {
           label: "Tentang SIMQ",
           icon: "i-lucide-info",
-          to: "/beranda/tentang-simq",
+          to: "/about",
           description: "Profil singkat tentang SIMQ dan sejarahnya.",
         },
       ],
@@ -32,9 +27,9 @@ const navItems = ref<NavigationMenuItem[][]>([
       icon: "i-lucide-layers",
       children: [
         {
-          label: "Tahfidh",
+          label: "Tahfizh",
           icon: "i-lucide-book",
-          to: "/divisi/tahfidh",
+          to: "/divisi/tahfizh",
           description: "Divisi penguatan hafalan Qur'an.",
         },
         {
@@ -90,15 +85,21 @@ const accordionItems = ref<AccordionItem[]>([
     slot: "nav" as const,
   },
 ]);
+
+const open = ref(true);
+
+// Use computed to set the value based on screen size
 </script>
 
 <template>
-  <div class="sticky top-0 left-0 w-full px-12 py-4 border border-black">
-    <UAccordion class="xl:hidden" :items="accordionItems">
-      <template #nav="{ item }">
-        <UNavigationMenu orientation="vertical" :items="navItems" class="w-full" />
-      </template>
-    </UAccordion>
-    <UNavigationMenu class="max-xl:hidden w-full" orientation="horizontal" :items="navItems" />
+  <div class="fixed top-0 left-0 w-full px-8 py-4 bg-white/70 backdrop-blur-lg flex flex-col gap-4">
+    <div class="w-full flex items-center justify-between">
+      <span class="truncate">Website SIMQ</span>
+      <UNavigationMenu class="max-xl:hidden" orientation="horizontal" :items="navItems" />
+      <UButton class="xl:hidden" variant="ghost" icon="i-lucide-menu" @click="open = !open" />
+    </div>
+    <div :class="{ hidden: open }" class="xl:hidden">
+      <UNavigationMenu class="" orientation="vertical" :items="navItems" />
+    </div>
   </div>
 </template>
