@@ -3,7 +3,7 @@
     <UContainer class="p-4">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 max-lg:px-16">
         <div class="lg:col-span-6 md:col-span-12 mb-4 md:mb-0">
-          <img class="mb-5" src="../assets/logo.png" alt="" />
+          <img class="mb-5" src="https://picsum.photos/70" alt="" />
 
           <div class="flex flex-col gap-4">
             <p class="text-left text-primary-800 text-[20px] font-medium leading-[21px]">SIMQ adalah Sebuah lembaga pendidikan yg sangat peduli dengan pembentukan karakter sesuai tuntunan Quran dan Sunnah.</p>
