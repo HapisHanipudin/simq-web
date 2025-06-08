@@ -2,7 +2,8 @@
 @import "@nuxt/ui";
 
 @theme static {
-  --font-sans: "Poppins", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
 
   --color-primary: #007f45;
 

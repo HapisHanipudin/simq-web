@@ -4,6 +4,10 @@ export default defineNuxtConfig({
 
   modules: ["@nuxt/ui", "@nuxt/eslint", "@nuxt/fonts", "@nuxt/icon", "@nuxt/image"],
 
+  fonts: {
+    families: [{ name: "Plus Jakarta Sans", provider: "google" }],
+  },
+
   css: ["~/assets/css/main.css"],
 
   ui: {
