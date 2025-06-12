@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "slicemachine": "start-slicemachine"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.45",
@@ -22,7 +23,10 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.4.1",
+    "@nuxtjs/prismic": "^4.1.0",
+    "@slicemachine/adapter-nuxt": "^0.3.78",
     "eslint": "^9.28.0",
+    "slice-machine-ui": "^2.16.1",
     "typescript": "^5.8.3"
   }
 }

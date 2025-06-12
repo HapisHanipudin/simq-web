@@ -1,0 +1,46 @@
+{
+  "id": "kontak",
+  "type": "SharedSlice",
+  "name": "Kontak",
+  "description": "Kontak",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "daftar_kontak": {
+          "type": "Group",
+          "config": {
+            "label": "Daftar Kontak",
+            "repeat": true,
+            "fields": {
+              "contact_detail": {
+                "type": "Link",
+                "config": {
+                  "label": "Detail Kontak",
+                  "select": "document",
+                  "repeat": false,
+                  "customtypes": [
+                    "kontak"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "gmaps_link": {
+          "type": "Text",
+          "config": {
+            "label": "Link Google MAP",
+            "placeholder": ""
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

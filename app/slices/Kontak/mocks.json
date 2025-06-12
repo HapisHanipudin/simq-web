@@ -1,0 +1,35 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"daftar_kontak": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"contact_detail",
+								{
+									"key": "c99f11b3-057d-4a6e-9c27-31e0174ceb87",
+									"__TYPE__": "LinkContent",
+									"value": {
+										"__TYPE__": "DocumentLink",
+										"id": "mock_document_id"
+									}
+								}
+							]
+						]
+					}
+				]
+			},
+			"gmaps_link": {
+				"__TYPE__": "FieldContent",
+				"value": "fire",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]

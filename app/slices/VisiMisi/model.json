@@ -1,0 +1,40 @@
+{
+  "type": "SharedSlice",
+  "id": "content_image_side",
+  "name": "VisiMisi",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Standard layout with main content and one image aligned side by side.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "visi": {
+          "type": "Text",
+          "config": {
+            "label": "Visi",
+            "placeholder": ""
+          }
+        },
+        "content": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Misi",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item"
+          }
+        },
+        "side_image": {
+          "type": "Image",
+          "config": {
+            "label": "Side Image"
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
