@@ -4,6 +4,71 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type FooterDocumentDataSlicesSlice = FooterSlice;
+
+/**
+ * Content for Footer documents
+ */
+interface FooterDocumentData {
+  /**
+   * Slice Zone field in *Footer*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<FooterDocumentDataSlicesSlice> /**
+   * Meta Title field in *Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: footer.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: footer.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Footer*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Footer document from Prismic
+ *
+ * - **API ID**: `footer`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type FooterDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<FooterDocumentData>,
+    "footer",
+    Lang
+  >;
+
 type HomeDocumentDataSlicesSlice =
   | MediaTextSlice
   | ContentImageSideSlice
@@ -385,6 +450,7 @@ export type ProgramDivisiDocument<Lang extends string = string> =
   >;
 
 export type AllDocumentTypes =
+  | FooterDocument
   | HomeDocument
   | JadwalSantriDocument
   | KontakDocument
@@ -1084,14 +1150,14 @@ export interface TimetableListSliceDefaultPrimaryPeriodsItem {
   period_name: prismic.KeyTextField;
 
   /**
-   * Activities field in *JadwalSantri → Default → Primary → Periods*
+   * Jadwal field in *JadwalSantri → Default → Primary → Periods*
    *
-   * - **Field Type**: Rich Text
+   * - **Field Type**: Table
    * - **Placeholder**: *None*
-   * - **API ID Path**: timetable_list.default.primary.periods[].activities
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **API ID Path**: timetable_list.default.primary.periods[].schedule
+   * - **Documentation**: https://prismic.io/docs/field#table
    */
-  activities: prismic.RichTextField;
+  schedule: prismic.TableField;
 }
 
 /**
@@ -1107,6 +1173,16 @@ export interface TimetableListSliceDefaultPrimary {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   title: prismic.TitleField;
+
+  /**
+   * Gambar field in *JadwalSantri → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: timetable_list.default.primary.image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  image: prismic.ImageField<never>;
 
   /**
    * Periods field in *JadwalSantri → Default → Primary*
@@ -1172,6 +1248,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      FooterDocument,
+      FooterDocumentData,
+      FooterDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,

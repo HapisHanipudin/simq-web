@@ -18,6 +18,14 @@
             "label": "Title"
           }
         },
+        "image": {
+          "type": "Image",
+          "config": {
+            "label": "Gambar",
+            "constraint": {},
+            "thumbnails": []
+          }
+        },
         "periods": {
           "type": "Group",
           "config": {
@@ -29,13 +37,10 @@
                   "label": "Period Name"
                 }
               },
-              "activities": {
-                "type": "StructuredText",
+              "schedule": {
+                "type": "Table",
                 "config": {
-                  "label": "Activities",
-                  "placeholder": "",
-                  "allowTargetBlank": true,
-                  "multi": "paragraph,strong,em,list-item,o-list-item"
+                  "label": "Jadwal"
                 }
               }
             }

@@ -13,7 +13,7 @@ const navItems = ref<NavigationMenuItem[]>([
     to: "/",
     children: [
       {
-        label: "Visi, Misi, Tujuan",
+        label: "Visi, Misi",
         icon: "i-lucide-target",
         to: "/visi-misi",
         description: "Menjelaskan arah dan tujuan utama SIMQ.",

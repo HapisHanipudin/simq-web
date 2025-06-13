@@ -4,7 +4,7 @@
     <div class="flex w-full min-h-screen justify-center flex-col gap-10" @click="closeAccordion">
       <NuxtPage />
     </div>
-    <Footer />
+    <FooterPage />
   </UApp>
 </template>
 
