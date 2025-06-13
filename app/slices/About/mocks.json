@@ -40,6 +40,15 @@
 				"__TYPE__": "FieldContent",
 				"value": "key",
 				"type": "Text"
+			},
+			"socmed_list": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": []
+					}
+				]
 			}
 		},
 		"items": []

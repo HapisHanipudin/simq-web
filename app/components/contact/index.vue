@@ -15,10 +15,9 @@
             <!-- Contact Info -->
             <div class="text-white space-y-3">
               <h2 class="text-2xl font-semibold">Informasi Kontak</h2>
-              <p class="flex items-center gap-2"><UIcon name="mdi:map-marker" class="w-6 h-6" color="currentColor" /> Alamat: Jl. Pendidikan No. 45, Ciawi, Bogor, Jawa Barat</p>
-              <p class="flex items-center gap-2"><UIcon name="mdi:whatsapp" class="w-6 h-6" color="currentColor" /> WhatsApp: <a href="https://wa.me/6281234567890" class="underline hover:text-blue-300">+62 812-3456-7890</a></p>
-              <p class="flex items-center gap-2"><UIcon name="mdi:email" class="w-6 h-6" color="currentColor" /> Email: <a href="mailto:info@qbs.sch.id" class="underline hover:text-blue-300">info@qbs.sch.id</a></p>
-              <p class="flex items-center gap-2"><UIcon name="mdi:instagram" class="w-6 h-6" color="currentColor" /> Instagram: <a href="https://instagram.com/qbs_school" class="underline hover:text-blue-300">@qbs_school</a></p>
+              <p class="flex items-center gap-2 capitalize"><UIcon name="mdi:map-marker" class="w-6 h-6" color="currentColor" /> {{ alamat }}</p>
+              <!-- <p class="flex items-center gap-2"><UIcon name="mdi:whatsapp" class="w-6 h-6" color="currentColor" /> WhatsApp: <a href="https://wa.me/6281234567890" class="underline hover:text-blue-300">+62 812-3456-7890</a></p> -->
+              <p v-for="contact in contact_list" class="flex items-center gap-2 capitalize"><UIcon :name="contact.icon" class="w-6 h-6" color="currentColor" /> {{ contact.platform }}: <PrismicLink :field="contact.link" /></p>
             </div>
           </div>
 
@@ -26,7 +25,7 @@
           <div>
             <iframe
               class="w-full h-full min-h-[370px] rounded-lg shadow-lg"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.92468553369!2d106.69447597588068!3d-6.65625686507254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69d1027ef9ea39%3A0x8bc33d5bc117c098!2sQuadrant%20Boarding%20School%20(QBS)!5e0!3m2!1sid!2sid!4v1749347551307!5m2!1sid!2sid"
+              :src="`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.123456789!2d${gmaps.longitude}!3d${gmaps.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTXCsDQ5JzQwLjAiTiAxMDZ8MjA0NDAwMDAw!5e0!3m2!1sen!2sid!4v1234567890`"
               style="border: 0"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
@@ -38,9 +37,16 @@
     </div>
   </div>
 </template>
-
 <script lang="ts" setup>
-// Pastikan <ContactForm /> sudah terdaftar dan tersedia di komponen
+const { alamat, gmaps, contact_list } = defineProps<{
+  alamat: any;
+  gmaps: any;
+  contact_list: Array<{
+    icon: any;
+    platform: any;
+    link: any;
+  }>;
+}>();
 </script>
 
 <style scoped>

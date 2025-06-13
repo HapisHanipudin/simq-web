@@ -32,6 +32,14 @@
             "allowTargetBlank": true,
             "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item,preformatted"
           }
+        },
+        "socmed_list": {
+          "type": "Group",
+          "config": {
+            "label": "List Sosial Media",
+            "repeat": true,
+            "fields": {}
+          }
         }
       },
       "items": {}

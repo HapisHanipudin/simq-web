@@ -1,8 +1,8 @@
 {
-  "id": "kontak",
+  "id": "footer",
   "type": "SharedSlice",
-  "name": "Kontak",
-  "description": "Kontak",
+  "name": "Footer",
+  "description": "Footer",
   "variations": [
     {
       "id": "default",
@@ -12,23 +12,35 @@
       "description": "Default",
       "imageUrl": "",
       "primary": {
-        "alamat": {
+        "icon": {
+          "type": "Image",
+          "config": {
+            "label": "Icon",
+            "constraint": {
+              "width": 100,
+              "height": 100
+            },
+            "thumbnails": []
+          }
+        },
+        "description": {
           "type": "Text",
           "config": {
-            "label": "Alamat",
+            "label": "Description",
             "placeholder": ""
           }
         },
-        "gmaps": {
-          "type": "GeoPoint",
+        "copyright": {
+          "type": "Text",
           "config": {
-            "label": "Google Map"
+            "label": "Copyright",
+            "placeholder": ""
           }
         },
-        "contact_list": {
+        "socmed_list": {
           "type": "Group",
           "config": {
-            "label": "List Kontak",
+            "label": "Social Media",
             "repeat": true,
             "fields": {
               "icon": {
@@ -38,18 +50,11 @@
                   "placeholder": "Cari icon di https://icon-sets.iconify.design/"
                 }
               },
-              "platform": {
-                "type": "Text",
-                "config": {
-                  "label": "Nama Media/Platform",
-                  "placeholder": ""
-                }
-              },
               "link": {
                 "type": "Link",
                 "config": {
-                  "label": "Link Menuju Kontak",
-                  "placeholder": "Masukan Label Kontak di sini",
+                  "label": "Link Kontak",
+                  "placeholder": "",
                   "select": null,
                   "allowTargetBlank": true,
                   "allowText": true,

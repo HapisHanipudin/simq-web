@@ -4,10 +4,20 @@ import { defineAsyncComponent } from "vue";
 import { defineSliceZoneComponents } from "@prismicio/vue";
 
 export const components = defineSliceZoneComponents({
+  admissions_flow: defineAsyncComponent(
+    () => import("./Pendaftaran/index.vue"),
+  ),
   content_image_side: defineAsyncComponent(
     () => import("./VisiMisi/index.vue"),
   ),
+  footer: defineAsyncComponent(() => import("./Footer/index.vue")),
   hero_with_cta: defineAsyncComponent(() => import("./Jumbotron/index.vue")),
   kontak: defineAsyncComponent(() => import("./Kontak/index.vue")),
   media_text: defineAsyncComponent(() => import("./About/index.vue")),
+  tabbed_feature_list: defineAsyncComponent(
+    () => import("./ProgramDivisi/index.vue"),
+  ),
+  timetable_list: defineAsyncComponent(
+    () => import("./JadwalSantri/index.vue"),
+  ),
 });

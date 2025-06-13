@@ -68,12 +68,77 @@ interface HomeDocumentData {
 export type HomeDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<HomeDocumentData>, "home", Lang>;
 
+type JadwalSantriDocumentDataSlicesSlice = TimetableListSlice;
+
 /**
- * Content for Kontak documents
+ * Content for Jadwal Santri documents
+ */
+interface JadwalSantriDocumentData {
+  /**
+   * Slice Zone field in *Jadwal Santri*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: jadwal_santri.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<JadwalSantriDocumentDataSlicesSlice> /**
+   * Meta Title field in *Jadwal Santri*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: jadwal_santri.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Jadwal Santri*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: jadwal_santri.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Jadwal Santri*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: jadwal_santri.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Jadwal Santri document from Prismic
+ *
+ * - **API ID**: `jadwal_santri`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type JadwalSantriDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<JadwalSantriDocumentData>,
+    "jadwal_santri",
+    Lang
+  >;
+
+/**
+ * Content for Contact Detail documents
  */
 interface KontakDocumentData {
   /**
-   * Nama Kontak field in *Kontak*
+   * Nama Kontak field in *Contact Detail*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Masukkan nama kontak
@@ -84,7 +149,7 @@ interface KontakDocumentData {
   nama_kontak: prismic.KeyTextField;
 
   /**
-   * Ikon Kontak field in *Kontak*
+   * Ikon Kontak field in *Contact Detail*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
@@ -95,7 +160,7 @@ interface KontakDocumentData {
   ikon_kontak: prismic.KeyTextField;
 
   /**
-   * Link Kontak field in *Kontak*
+   * Link Kontak field in *Contact Detail*
    *
    * - **Field Type**: Link
    * - **Placeholder**: *None*
@@ -113,7 +178,7 @@ interface KontakDocumentData {
 }
 
 /**
- * Kontak document from Prismic
+ * Contact Detail document from Prismic
  *
  * - **API ID**: `kontak`
  * - **Repeatable**: `true`
@@ -124,7 +189,373 @@ interface KontakDocumentData {
 export type KontakDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<KontakDocumentData>, "kontak", Lang>;
 
-export type AllDocumentTypes = HomeDocument | KontakDocument;
+type KontakkDocumentDataSlicesSlice = KontakSlice;
+
+/**
+ * Content for Kontakk documents
+ */
+interface KontakkDocumentData {
+  /**
+   * Slice Zone field in *Kontakk*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: kontakk.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<KontakkDocumentDataSlicesSlice> /**
+   * Meta Title field in *Kontakk*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: kontakk.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Kontakk*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: kontakk.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Kontakk*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: kontakk.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Kontakk document from Prismic
+ *
+ * - **API ID**: `kontakk`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type KontakkDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<KontakkDocumentData>,
+    "kontakk",
+    Lang
+  >;
+
+type PendaftaranDocumentDataSlicesSlice = AdmissionsFlowSlice;
+
+/**
+ * Content for Pendaftaran documents
+ */
+interface PendaftaranDocumentData {
+  /**
+   * Slice Zone field in *Pendaftaran*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: pendaftaran.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<PendaftaranDocumentDataSlicesSlice> /**
+   * Meta Title field in *Pendaftaran*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: pendaftaran.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Pendaftaran*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: pendaftaran.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Pendaftaran*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: pendaftaran.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Pendaftaran document from Prismic
+ *
+ * - **API ID**: `pendaftaran`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type PendaftaranDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<PendaftaranDocumentData>,
+    "pendaftaran",
+    Lang
+  >;
+
+type ProgramDivisiDocumentDataSlicesSlice = TabbedFeatureListSlice;
+
+/**
+ * Content for Program Divisi documents
+ */
+interface ProgramDivisiDocumentData {
+  /**
+   * Slice Zone field in *Program Divisi*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: program_divisi.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<ProgramDivisiDocumentDataSlicesSlice> /**
+   * Meta Title field in *Program Divisi*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: program_divisi.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Program Divisi*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: program_divisi.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Program Divisi*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: program_divisi.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Program Divisi document from Prismic
+ *
+ * - **API ID**: `program_divisi`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProgramDivisiDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ProgramDivisiDocumentData>,
+    "program_divisi",
+    Lang
+  >;
+
+export type AllDocumentTypes =
+  | HomeDocument
+  | JadwalSantriDocument
+  | KontakDocument
+  | KontakkDocument
+  | PendaftaranDocument
+  | ProgramDivisiDocument;
+
+/**
+ * Item in *Pendaftaran → Default → Primary → Procedural Steps*
+ */
+export interface AdmissionsFlowSliceDefaultPrimaryStepsItem {
+  /**
+   * Step Title field in *Pendaftaran → Default → Primary → Procedural Steps*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.steps[].step_title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  step_title: prismic.TitleField;
+
+  /**
+   * Step Description field in *Pendaftaran → Default → Primary → Procedural Steps*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.steps[].step_description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  step_description: prismic.RichTextField;
+}
+
+/**
+ * Item in *Pendaftaran → Default → Primary → Requirements List*
+ */
+export interface AdmissionsFlowSliceDefaultPrimaryRequirementsItem {
+  /**
+   * Requirement Title field in *Pendaftaran → Default → Primary → Requirements List*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.requirements[].requirement_title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  requirement_title: prismic.KeyTextField;
+
+  /**
+   * Requirement Details field in *Pendaftaran → Default → Primary → Requirements List*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.requirements[].requirement_details
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  requirement_details: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *Pendaftaran → Default → Primary*
+ */
+export interface AdmissionsFlowSliceDefaultPrimary {
+  /**
+   * Main Title field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.main_title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  main_title: prismic.TitleField;
+
+  /**
+   * Main Description field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.main_description
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  main_description: prismic.RichTextField;
+
+  /**
+   * Call to Action Button field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.cta_button
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  cta_button: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    never
+  >;
+
+  /**
+   * Visual Image field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.visual_image
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  visual_image: prismic.ImageField<never>;
+
+  /**
+   * Procedural Steps field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.steps[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  steps: prismic.GroupField<
+    Simplify<AdmissionsFlowSliceDefaultPrimaryStepsItem>
+  >;
+
+  /**
+   * Requirements Heading field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.requirements_heading
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  requirements_heading: prismic.TitleField;
+
+  /**
+   * Requirements List field in *Pendaftaran → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: admissions_flow.default.primary.requirements[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  requirements: prismic.GroupField<
+    Simplify<AdmissionsFlowSliceDefaultPrimaryRequirementsItem>
+  >;
+}
+
+/**
+ * Default variation for Pendaftaran Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Standard layout combining introductory info, procedural steps, and expandable requirement sections.
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type AdmissionsFlowSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<AdmissionsFlowSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Pendaftaran*
+ */
+type AdmissionsFlowSliceVariation = AdmissionsFlowSliceDefault;
+
+/**
+ * Pendaftaran Shared Slice
+ *
+ * - **API ID**: `admissions_flow`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type AdmissionsFlowSlice = prismic.SharedSlice<
+  "admissions_flow",
+  AdmissionsFlowSliceVariation
+>;
 
 /**
  * Primary content in *VisiMisi → Default → Primary*
@@ -190,6 +621,105 @@ export type ContentImageSideSlice = prismic.SharedSlice<
   "content_image_side",
   ContentImageSideSliceVariation
 >;
+
+/**
+ * Item in *Footer → Default → Primary → Social Media*
+ */
+export interface FooterSliceDefaultPrimarySocmedListItem {
+  /**
+   * Ikon Kontak field in *Footer → Default → Primary → Social Media*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
+   * - **API ID Path**: footer.default.primary.socmed_list[].icon
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+
+  /**
+   * Link Kontak field in *Footer → Default → Primary → Social Media*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.socmed_list[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+/**
+ * Primary content in *Footer → Default → Primary*
+ */
+export interface FooterSliceDefaultPrimary {
+  /**
+   * Icon field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.icon
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Description field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.description
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Copyright field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.copyright
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copyright: prismic.KeyTextField;
+
+  /**
+   * Social Media field in *Footer → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: footer.default.primary.socmed_list[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  socmed_list: prismic.GroupField<
+    Simplify<FooterSliceDefaultPrimarySocmedListItem>
+  >;
+}
+
+/**
+ * Default variation for Footer Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<FooterSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *Footer*
+ */
+type FooterSliceVariation = FooterSliceDefault;
+
+/**
+ * Footer Shared Slice
+ *
+ * - **API ID**: `footer`
+ * - **Description**: Footer
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type FooterSlice = prismic.SharedSlice<"footer", FooterSliceVariation>;
 
 /**
  * Primary content in *Jumbotron → Default → Primary*
@@ -267,18 +797,38 @@ export type HeroWithCtaSlice = prismic.SharedSlice<
 >;
 
 /**
- * Item in *Kontak → Default → Primary → Daftar Kontak*
+ * Item in *Kontak → Default → Primary → List Kontak*
  */
-export interface KontakSliceDefaultPrimaryDaftarKontakItem {
+export interface KontakSliceDefaultPrimaryContactListItem {
   /**
-   * Detail Kontak field in *Kontak → Default → Primary → Daftar Kontak*
+   * Ikon Kontak field in *Kontak → Default → Primary → List Kontak*
    *
-   * - **Field Type**: Content Relationship
+   * - **Field Type**: Text
+   * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
+   * - **API ID Path**: kontak.default.primary.contact_list[].icon
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+
+  /**
+   * Nama Media/Platform field in *Kontak → Default → Primary → List Kontak*
+   *
+   * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: kontak.default.primary.daftar_kontak[].contact_detail
+   * - **API ID Path**: kontak.default.primary.contact_list[].platform
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  platform: prismic.KeyTextField;
+
+  /**
+   * Link Menuju Kontak field in *Kontak → Default → Primary → List Kontak*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: Masukan Label Kontak di sini
+   * - **API ID Path**: kontak.default.primary.contact_list[].link
    * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
    */
-  contact_detail: prismic.ContentRelationshipField<"kontak">;
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
 
 /**
@@ -286,26 +836,36 @@ export interface KontakSliceDefaultPrimaryDaftarKontakItem {
  */
 export interface KontakSliceDefaultPrimary {
   /**
-   * Daftar Kontak field in *Kontak → Default → Primary*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: kontak.default.primary.daftar_kontak[]
-   * - **Documentation**: https://prismic.io/docs/field#group
-   */
-  daftar_kontak: prismic.GroupField<
-    Simplify<KontakSliceDefaultPrimaryDaftarKontakItem>
-  >;
-
-  /**
-   * Link Google MAP field in *Kontak → Default → Primary*
+   * Alamat field in *Kontak → Default → Primary*
    *
    * - **Field Type**: Text
    * - **Placeholder**: *None*
-   * - **API ID Path**: kontak.default.primary.gmaps_link
+   * - **API ID Path**: kontak.default.primary.alamat
    * - **Documentation**: https://prismic.io/docs/field#key-text
    */
-  gmaps_link: prismic.KeyTextField;
+  alamat: prismic.KeyTextField;
+
+  /**
+   * Google Map field in *Kontak → Default → Primary*
+   *
+   * - **Field Type**: GeoPoint
+   * - **Placeholder**: *None*
+   * - **API ID Path**: kontak.default.primary.gmaps
+   * - **Documentation**: https://prismic.io/docs/field#geopoint
+   */
+  gmaps: prismic.GeoPointField;
+
+  /**
+   * List Kontak field in *Kontak → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: kontak.default.primary.contact_list[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  contact_list: prismic.GroupField<
+    Simplify<KontakSliceDefaultPrimaryContactListItem>
+  >;
 }
 
 /**
@@ -334,6 +894,11 @@ type KontakSliceVariation = KontakSliceDefault;
  * - **Documentation**: https://prismic.io/docs/slice
  */
 export type KontakSlice = prismic.SharedSlice<"kontak", KontakSliceVariation>;
+
+/**
+ * Item in *About → Image Left / Text Right → Primary → List Sosial Media*
+ */
+export interface MediaTextSliceImageLeftTextRightPrimarySocmedListItem {}
 
 /**
  * Primary content in *About → Image Left / Text Right → Primary*
@@ -368,6 +933,18 @@ export interface MediaTextSliceImageLeftTextRightPrimary {
    * - **Documentation**: https://prismic.io/docs/field#rich-text-title
    */
   description: prismic.RichTextField;
+
+  /**
+   * List Sosial Media field in *About → Image Left / Text Right → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: media_text.image_left_text_right.primary.socmed_list[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  socmed_list: prismic.GroupField<
+    Simplify<MediaTextSliceImageLeftTextRightPrimarySocmedListItem>
+  >;
 }
 
 /**
@@ -400,6 +977,180 @@ export type MediaTextSlice = prismic.SharedSlice<
   MediaTextSliceVariation
 >;
 
+/**
+ * Item in *ProgramDivisi → Default → Primary → Tabs*
+ */
+export interface TabbedFeatureListSliceDefaultPrimaryTabsItem {
+  /**
+   * Icon Tab field in *ProgramDivisi → Default → Primary → Tabs*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
+   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].icon
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+
+  /**
+   * Tab Label field in *ProgramDivisi → Default → Primary → Tabs*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].label
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  label: prismic.KeyTextField;
+
+  /**
+   * Tab Content field in *ProgramDivisi → Default → Primary → Tabs*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].tab_content
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  tab_content: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *ProgramDivisi → Default → Primary*
+ */
+export interface TabbedFeatureListSliceDefaultPrimary {
+  /**
+   * Title field in *ProgramDivisi → Default → Primary*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Judul Halaman
+   * - **API ID Path**: tabbed_feature_list.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Tabs field in *ProgramDivisi → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  tabs: prismic.GroupField<
+    Simplify<TabbedFeatureListSliceDefaultPrimaryTabsItem>
+  >;
+}
+
+/**
+ * Default variation for ProgramDivisi Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Standard tabbed display with a list of tabs and associated content for each tab.
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TabbedFeatureListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TabbedFeatureListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *ProgramDivisi*
+ */
+type TabbedFeatureListSliceVariation = TabbedFeatureListSliceDefault;
+
+/**
+ * ProgramDivisi Shared Slice
+ *
+ * - **API ID**: `tabbed_feature_list`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TabbedFeatureListSlice = prismic.SharedSlice<
+  "tabbed_feature_list",
+  TabbedFeatureListSliceVariation
+>;
+
+/**
+ * Item in *JadwalSantri → Default → Primary → Periods*
+ */
+export interface TimetableListSliceDefaultPrimaryPeriodsItem {
+  /**
+   * Period Name field in *JadwalSantri → Default → Primary → Periods*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: timetable_list.default.primary.periods[].period_name
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  period_name: prismic.KeyTextField;
+
+  /**
+   * Activities field in *JadwalSantri → Default → Primary → Periods*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: timetable_list.default.primary.periods[].activities
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  activities: prismic.RichTextField;
+}
+
+/**
+ * Primary content in *JadwalSantri → Default → Primary*
+ */
+export interface TimetableListSliceDefaultPrimary {
+  /**
+   * Title field in *JadwalSantri → Default → Primary*
+   *
+   * - **Field Type**: Title
+   * - **Placeholder**: *None*
+   * - **API ID Path**: timetable_list.default.primary.title
+   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   */
+  title: prismic.TitleField;
+
+  /**
+   * Periods field in *JadwalSantri → Default → Primary*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: timetable_list.default.primary.periods[]
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  periods: prismic.GroupField<
+    Simplify<TimetableListSliceDefaultPrimaryPeriodsItem>
+  >;
+}
+
+/**
+ * Default variation for JadwalSantri Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Displays a heading and a list of time periods, each with multiple activities.
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TimetableListSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Simplify<TimetableListSliceDefaultPrimary>,
+  never
+>;
+
+/**
+ * Slice variation for *JadwalSantri*
+ */
+type TimetableListSliceVariation = TimetableListSliceDefault;
+
+/**
+ * JadwalSantri Shared Slice
+ *
+ * - **API ID**: `timetable_list`
+ * - **Description**: *None*
+ * - **Documentation**: https://prismic.io/docs/slice
+ */
+export type TimetableListSlice = prismic.SharedSlice<
+  "timetable_list",
+  TimetableListSliceVariation
+>;
+
 declare module "@prismicio/client" {
   interface CreateClient {
     (
@@ -424,26 +1175,60 @@ declare module "@prismicio/client" {
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
+      JadwalSantriDocument,
+      JadwalSantriDocumentData,
+      JadwalSantriDocumentDataSlicesSlice,
       KontakDocument,
       KontakDocumentData,
+      KontakkDocument,
+      KontakkDocumentData,
+      KontakkDocumentDataSlicesSlice,
+      PendaftaranDocument,
+      PendaftaranDocumentData,
+      PendaftaranDocumentDataSlicesSlice,
+      ProgramDivisiDocument,
+      ProgramDivisiDocumentData,
+      ProgramDivisiDocumentDataSlicesSlice,
       AllDocumentTypes,
+      AdmissionsFlowSlice,
+      AdmissionsFlowSliceDefaultPrimaryStepsItem,
+      AdmissionsFlowSliceDefaultPrimaryRequirementsItem,
+      AdmissionsFlowSliceDefaultPrimary,
+      AdmissionsFlowSliceVariation,
+      AdmissionsFlowSliceDefault,
       ContentImageSideSlice,
       ContentImageSideSliceDefaultPrimary,
       ContentImageSideSliceVariation,
       ContentImageSideSliceDefault,
+      FooterSlice,
+      FooterSliceDefaultPrimarySocmedListItem,
+      FooterSliceDefaultPrimary,
+      FooterSliceVariation,
+      FooterSliceDefault,
       HeroWithCtaSlice,
       HeroWithCtaSliceDefaultPrimary,
       HeroWithCtaSliceVariation,
       HeroWithCtaSliceDefault,
       KontakSlice,
-      KontakSliceDefaultPrimaryDaftarKontakItem,
+      KontakSliceDefaultPrimaryContactListItem,
       KontakSliceDefaultPrimary,
       KontakSliceVariation,
       KontakSliceDefault,
       MediaTextSlice,
+      MediaTextSliceImageLeftTextRightPrimarySocmedListItem,
       MediaTextSliceImageLeftTextRightPrimary,
       MediaTextSliceVariation,
       MediaTextSliceImageLeftTextRight,
+      TabbedFeatureListSlice,
+      TabbedFeatureListSliceDefaultPrimaryTabsItem,
+      TabbedFeatureListSliceDefaultPrimary,
+      TabbedFeatureListSliceVariation,
+      TabbedFeatureListSliceDefault,
+      TimetableListSlice,
+      TimetableListSliceDefaultPrimaryPeriodsItem,
+      TimetableListSliceDefaultPrimary,
+      TimetableListSliceVariation,
+      TimetableListSliceDefault,
     };
   }
 }

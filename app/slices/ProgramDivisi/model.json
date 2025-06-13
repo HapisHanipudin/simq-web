@@ -1,59 +1,49 @@
 {
-  "id": "kontak",
   "type": "SharedSlice",
-  "name": "Kontak",
-  "description": "Kontak",
+  "id": "tabbed_feature_list",
+  "name": "ProgramDivisi",
   "variations": [
     {
       "id": "default",
       "name": "Default",
-      "docURL": "...",
+      "description": "Standard tabbed display with a list of tabs and associated content for each tab.",
       "version": "initial",
-      "description": "Default",
       "imageUrl": "",
+      "docURL": "...",
       "primary": {
-        "alamat": {
+        "title": {
           "type": "Text",
           "config": {
-            "label": "Alamat",
-            "placeholder": ""
+            "label": "Title",
+            "placeholder": "Judul Halaman"
           }
         },
-        "gmaps": {
-          "type": "GeoPoint",
-          "config": {
-            "label": "Google Map"
-          }
-        },
-        "contact_list": {
+        "tabs": {
           "type": "Group",
           "config": {
-            "label": "List Kontak",
-            "repeat": true,
+            "label": "Tabs",
             "fields": {
               "icon": {
                 "type": "Text",
                 "config": {
-                  "label": "Ikon Kontak",
+                  "label": "Icon Tab",
                   "placeholder": "Cari icon di https://icon-sets.iconify.design/"
                 }
               },
-              "platform": {
+              "label": {
                 "type": "Text",
                 "config": {
-                  "label": "Nama Media/Platform",
+                  "label": "Tab Label",
                   "placeholder": ""
                 }
               },
-              "link": {
-                "type": "Link",
+              "tab_content": {
+                "type": "StructuredText",
                 "config": {
-                  "label": "Link Menuju Kontak",
-                  "placeholder": "Masukan Label Kontak di sini",
-                  "select": null,
+                  "label": "Tab Content",
+                  "placeholder": "",
                   "allowTargetBlank": true,
-                  "allowText": true,
-                  "repeat": false
+                  "multi": "paragraph,strong,em,hyperlink,heading1,heading2,heading3,heading4,heading5,heading6,list-item,o-list-item,preformatted,image,embed,rtl"
                 }
               }
             }

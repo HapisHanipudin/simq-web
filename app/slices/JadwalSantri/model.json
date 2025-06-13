@@ -1,0 +1,48 @@
+{
+  "type": "SharedSlice",
+  "id": "timetable_list",
+  "name": "JadwalSantri",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Displays a heading and a list of time periods, each with multiple activities.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading2",
+            "label": "Title"
+          }
+        },
+        "periods": {
+          "type": "Group",
+          "config": {
+            "label": "Periods",
+            "fields": {
+              "period_name": {
+                "type": "Text",
+                "config": {
+                  "label": "Period Name"
+                }
+              },
+              "activities": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Activities",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,strong,em,list-item,o-list-item"
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}
