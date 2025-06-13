@@ -1,0 +1,59 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"gmaps": {
+				"position": {
+					"lat": 48.8583736,
+					"lng": 2.2922926
+				},
+				"__TYPE__": "GeoPointContent"
+			},
+			"alamat": {
+				"__TYPE__": "FieldContent",
+				"value": "year",
+				"type": "Text"
+			},
+			"contact_list": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"icon",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "heat",
+									"type": "Text"
+								}
+							],
+							[
+								"platform",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "establish",
+									"type": "Text"
+								}
+							],
+							[
+								"link",
+								{
+									"__TYPE__": "LinkContent",
+									"key": "dd952527-0190-4839-a6a3-d4a550ec8657",
+									"value": {
+										"__TYPE__": "ExternalLink",
+										"url": "https://slicemachine.dev",
+										"text": "hat"
+									}
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

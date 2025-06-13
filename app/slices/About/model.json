@@ -1,0 +1,48 @@
+{
+  "type": "SharedSlice",
+  "id": "media_text",
+  "name": "About",
+  "variations": [
+    {
+      "id": "image_left_text_right",
+      "name": "Image Left / Text Right",
+      "description": "Displays the image or media on the left and heading with text content on the right.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "judul": {
+          "type": "Text",
+          "config": {
+            "label": "Judul",
+            "placeholder": ""
+          }
+        },
+        "media": {
+          "type": "Image",
+          "config": {
+            "label": "Media"
+          }
+        },
+        "description": {
+          "type": "StructuredText",
+          "config": {
+            "label": "Description",
+            "placeholder": "",
+            "allowTargetBlank": true,
+            "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item,preformatted"
+          }
+        },
+        "socmed_list": {
+          "type": "Group",
+          "config": {
+            "label": "List Sosial Media",
+            "repeat": true,
+            "fields": {}
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

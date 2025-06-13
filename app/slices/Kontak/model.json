@@ -1,0 +1,66 @@
+{
+  "id": "kontak",
+  "type": "SharedSlice",
+  "name": "Kontak",
+  "description": "Kontak",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": "",
+      "primary": {
+        "alamat": {
+          "type": "Text",
+          "config": {
+            "label": "Alamat",
+            "placeholder": ""
+          }
+        },
+        "gmaps": {
+          "type": "GeoPoint",
+          "config": {
+            "label": "Google Map"
+          }
+        },
+        "contact_list": {
+          "type": "Group",
+          "config": {
+            "label": "List Kontak",
+            "repeat": true,
+            "fields": {
+              "icon": {
+                "type": "Text",
+                "config": {
+                  "label": "Ikon Kontak",
+                  "placeholder": "Cari icon di https://icon-sets.iconify.design/"
+                }
+              },
+              "platform": {
+                "type": "Text",
+                "config": {
+                  "label": "Nama Media/Platform",
+                  "placeholder": ""
+                }
+              },
+              "link": {
+                "type": "Link",
+                "config": {
+                  "label": "Link Menuju Kontak",
+                  "placeholder": "Masukan Label Kontak di sini",
+                  "select": null,
+                  "allowTargetBlank": true,
+                  "allowText": true,
+                  "repeat": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

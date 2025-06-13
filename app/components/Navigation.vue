@@ -13,7 +13,7 @@ const navItems = ref<NavigationMenuItem[]>([
     to: "/",
     children: [
       {
-        label: "Visi, Misi, Tujuan",
+        label: "Visi, Misi",
         icon: "i-lucide-target",
         to: "/visi-misi",
         description: "Menjelaskan arah dan tujuan utama SIMQ.",
@@ -33,25 +33,25 @@ const navItems = ref<NavigationMenuItem[]>([
       {
         label: "Tahfizh",
         icon: "i-lucide-book",
-        to: "/tahfizh",
+        to: "/program/tahfizh",
         description: "Divisi penguatan hafalan Qur'an.",
       },
-      {
-        label: "IT",
-        icon: "i-lucide-code",
-        to: "/it",
-        description: "Divisi teknologi dan pengembangan perangkat lunak.",
-      },
-      {
-        label: "Pertanian",
-        icon: "i-lucide-leaf",
-        to: "/pertanian",
-        description: "Divisi pertanian modern dan keberlanjutan.",
-      },
+      // {
+      //   label: "IT",
+      //   icon: "i-lucide-code",
+      //   to: "/it",
+      //   description: "Divisi teknologi dan pengembangan perangkat lunak.",
+      // },
+      // {
+      //   label: "Pertanian",
+      //   icon: "i-lucide-leaf",
+      //   to: "/pertanian",
+      //   description: "Divisi pertanian modern dan keberlanjutan.",
+      // },
       {
         label: "Bisnis",
         icon: "i-lucide-briefcase",
-        to: "/bisnis",
+        to: "/program/bisnis",
         description: "Divisi wirausaha dan pengembangan bisnis.",
       },
     ],

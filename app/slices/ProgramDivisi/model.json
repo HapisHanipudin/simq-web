@@ -1,0 +1,56 @@
+{
+  "type": "SharedSlice",
+  "id": "tabbed_feature_list",
+  "name": "ProgramDivisi",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Standard tabbed display with a list of tabs and associated content for each tab.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "title": {
+          "type": "Text",
+          "config": {
+            "label": "Title",
+            "placeholder": "Judul Halaman"
+          }
+        },
+        "tabs": {
+          "type": "Group",
+          "config": {
+            "label": "Tabs",
+            "fields": {
+              "icon": {
+                "type": "Text",
+                "config": {
+                  "label": "Tab Icon",
+                  "placeholder": "Cari icon di https://icon-sets.iconify.design/"
+                }
+              },
+              "label": {
+                "type": "Text",
+                "config": {
+                  "label": "Tab Label",
+                  "placeholder": ""
+                }
+              },
+              "tab_content": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Tab Content",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,strong,em,hyperlink,heading1,heading2,heading3,heading4,heading5,heading6,list-item,o-list-item,preformatted,image,embed,rtl"
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

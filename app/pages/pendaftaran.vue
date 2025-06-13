@@ -2,7 +2,7 @@
 import { components } from "~/slices";
 
 const prismic = usePrismic();
-const { data: page } = await useAsyncData("[home]", () => prismic.client.getSingle("home"));
+const { data: page } = await useAsyncData("[pendaftaran]", () => prismic.client.getSingle("pendaftaran"));
 
 useSeoMeta({
   title: page.value?.data.meta_title,

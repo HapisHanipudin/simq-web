@@ -1,0 +1,149 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Exclaimed"
+						}
+					}
+				]
+			},
+			"periods": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"period_name",
+								{
+									"__TYPE__": "FieldContent",
+									"type": "Text",
+									"value": "Jadwal Pagi"
+								}
+							],
+							[
+								"schedule",
+								{
+									"__TYPE__": "TableContent",
+									"content": [
+										{
+											"key": "a284b235-ce5d-45c7-808b-f0383df42a7f",
+											"type": "tableRow",
+											"content": [
+												{
+													"key": "44e90320-d663-471a-892f-46c8dceb212e",
+													"type": "tableHeader",
+													"content": {
+														"__TYPE__": "StructuredTextContent",
+														"value": [
+															{
+																"type": "paragraph",
+																"content": {
+																	"text": "Waktu",
+																	"spans": []
+																},
+																"direction": "ltr"
+															}
+														]
+													}
+												},
+												{
+													"key": "6d98d578-7a6b-4f32-9406-99a308eaae91",
+													"type": "tableHeader",
+													"content": {
+														"__TYPE__": "StructuredTextContent",
+														"value": [
+															{
+																"type": "paragraph",
+																"content": {
+																	"text": "Aktivitas",
+																	"spans": []
+																},
+																"direction": "ltr"
+															}
+														]
+													}
+												}
+											]
+										},
+										{
+											"key": "89b06351-e99d-4321-a337-9c4bd6ca747f",
+											"type": "tableRow",
+											"content": [
+												{
+													"key": "d5619fd6-6c32-4fa7-907e-9a26169ae175",
+													"type": "tableCell",
+													"content": {
+														"__TYPE__": "StructuredTextContent",
+														"value": [
+															{
+																"type": "paragraph",
+																"content": {
+																	"text": "05.00-06.00",
+																	"spans": []
+																},
+																"direction": "ltr"
+															}
+														]
+													}
+												},
+												{
+													"key": "c8aae7a1-2d5b-468f-9f71-50ef6d9c7ed9",
+													"type": "tableCell",
+													"content": {
+														"__TYPE__": "StructuredTextContent",
+														"value": [
+															{
+																"type": "paragraph",
+																"content": {
+																	"text": "Halaqah Pagi",
+																	"spans": []
+																},
+																"direction": "ltr"
+															}
+														]
+													}
+												}
+											]
+										}
+									]
+								}
+							]
+						]
+					}
+				]
+			},
+			"image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1607582278043-57198ac8da43",
+					"width": 4024,
+					"height": 4024
+				},
+				"url": "https://images.unsplash.com/photo-1607582278043-57198ac8da43",
+				"width": 4024,
+				"height": 4024,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "arrangement",
+				"credits": null,
+				"__TYPE__": "ImageContent",
+				"thumbnails": {}
+			}
+		},
+		"items": []
+	}
+]

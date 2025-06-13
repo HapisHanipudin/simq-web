@@ -1,0 +1,99 @@
+{
+  "type": "SharedSlice",
+  "id": "admissions_flow",
+  "name": "Pendaftaran",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "description": "Standard layout combining introductory info, procedural steps, and expandable requirement sections.",
+      "version": "initial",
+      "imageUrl": "",
+      "docURL": "...",
+      "primary": {
+        "main_title": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading1",
+            "label": "Main Title"
+          }
+        },
+        "main_description": {
+          "type": "StructuredText",
+          "config": {
+            "multi": "paragraph,strong,em,hyperlink",
+            "label": "Main Description"
+          }
+        },
+        "cta_button": {
+          "type": "Link",
+          "config": {
+            "label": "Call to Action Button",
+            "allowText": true,
+            "repeat": false,
+            "select": null
+          }
+        },
+        "visual_image": {
+          "type": "Image",
+          "config": {
+            "label": "Visual Image"
+          }
+        },
+        "steps": {
+          "type": "Group",
+          "config": {
+            "label": "Procedural Steps",
+            "fields": {
+              "step_title": {
+                "type": "StructuredText",
+                "config": {
+                  "single": "heading3",
+                  "label": "Step Title"
+                }
+              },
+              "step_description": {
+                "type": "StructuredText",
+                "config": {
+                  "multi": "paragraph,strong,em,hyperlink",
+                  "label": "Step Description"
+                }
+              }
+            }
+          }
+        },
+        "requirements_heading": {
+          "type": "StructuredText",
+          "config": {
+            "single": "heading2",
+            "label": "Requirements Heading"
+          }
+        },
+        "requirements": {
+          "type": "Group",
+          "config": {
+            "label": "Requirements List",
+            "fields": {
+              "requirement_title": {
+                "type": "Text",
+                "config": {
+                  "label": "Requirement Title"
+                }
+              },
+              "requirement_details": {
+                "type": "StructuredText",
+                "config": {
+                  "label": "Requirement Details",
+                  "placeholder": "",
+                  "allowTargetBlank": true,
+                  "multi": "paragraph,strong,em,hyperlink,list-item,o-list-item,image,preformatted,heading1,heading2,heading3,heading4,heading5,heading6,rtl,embed"
+                }
+              }
+            }
+          }
+        }
+      },
+      "items": {}
+    }
+  ]
+}

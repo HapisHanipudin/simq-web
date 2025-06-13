@@ -1,0 +1,143 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"main_title": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading1",
+						"content": {
+							"text": "Syllable"
+						}
+					}
+				]
+			},
+			"main_description": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Et eiusmod magna reprehenderit ut sunt quis esse adipisicing excepteur."
+						}
+					}
+				]
+			},
+			"cta_button": {
+				"key": "a7b18628-a1ca-4635-8528-f666e2350ddd",
+				"__TYPE__": "LinkContent",
+				"value": {
+					"__TYPE__": "ExternalLink",
+					"url": "https://prismic.io",
+					"text": "steep"
+				}
+			},
+			"visual_image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1601933973783-43cf8a7d4c5f",
+					"width": 6597,
+					"height": 4398
+				},
+				"url": "https://images.unsplash.com/photo-1601933973783-43cf8a7d4c5f",
+				"width": 6597,
+				"height": 4398,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "bark",
+				"credits": null,
+				"__TYPE__": "ImageContent"
+			},
+			"steps": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"step_title",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "heading3",
+											"content": {
+												"text": "Coming"
+											}
+										}
+									]
+								}
+							],
+							[
+								"step_description",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Quis qui culpa enim anim aliqua deserunt esse consectetur. Sunt Lorem velit culpa laborum consectetur esse culpa mollit do officia tempor consectetur nisi occaecat."
+											}
+										}
+									]
+								}
+							]
+						]
+					}
+				]
+			},
+			"requirements_heading": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "heading2",
+						"content": {
+							"text": "Taste"
+						}
+					}
+				]
+			},
+			"requirements": {
+				"__TYPE__": "GroupContentType",
+				"value": [
+					{
+						"__TYPE__": "GroupItemContent",
+						"value": [
+							[
+								"requirement_title",
+								{
+									"__TYPE__": "FieldContent",
+									"value": "whenever",
+									"type": "Text"
+								}
+							],
+							[
+								"requirement_details",
+								{
+									"__TYPE__": "StructuredTextContent",
+									"value": [
+										{
+											"type": "paragraph",
+											"content": {
+												"text": "Cupidatat duis non elit sit mollit elit elit nulla."
+											}
+										}
+									]
+								}
+							]
+						]
+					}
+				]
+			}
+		},
+		"items": []
+	}
+]

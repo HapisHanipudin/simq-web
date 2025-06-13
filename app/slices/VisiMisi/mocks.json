@@ -1,0 +1,47 @@
+[
+	{
+		"__TYPE__": "SharedSliceContent",
+		"variation": "default",
+		"primary": {
+			"content": {
+				"__TYPE__": "StructuredTextContent",
+				"value": [
+					{
+						"type": "paragraph",
+						"content": {
+							"text": "Ea aute consectetur deserunt occaecat. Qui officia veniam velit sit ullamco consequat id pariatur ad amet eiusmod duis duis do. Est nulla ullamco minim tempor ullamco enim magna nulla enim aliqua."
+						}
+					}
+				]
+			},
+			"side_image": {
+				"origin": {
+					"id": "main",
+					"url": "https://images.unsplash.com/photo-1494173853739-c21f58b16055",
+					"width": 3277,
+					"height": 4092
+				},
+				"url": "https://images.unsplash.com/photo-1494173853739-c21f58b16055",
+				"width": 3277,
+				"height": 4092,
+				"edit": {
+					"zoom": 1,
+					"crop": {
+						"x": 0,
+						"y": 0
+					},
+					"background": "transparent"
+				},
+				"alt": "operation",
+				"credits": null,
+				"__TYPE__": "ImageContent"
+			},
+			"visi": {
+				"__TYPE__": "FieldContent",
+				"value": "board",
+				"type": "Text"
+			}
+		},
+		"items": []
+	}
+]
