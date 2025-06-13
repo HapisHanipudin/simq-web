@@ -1048,7 +1048,7 @@ export type MediaTextSlice = prismic.SharedSlice<
  */
 export interface TabbedFeatureListSliceDefaultPrimaryTabsItem {
   /**
-   * Icon Tab field in *ProgramDivisi → Default → Primary → Tabs*
+   * Tab Icon field in *ProgramDivisi → Default → Primary → Tabs*
    *
    * - **Field Type**: Text
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/

@@ -17,7 +17,7 @@
               <h2 class="text-2xl font-semibold">Informasi Kontak</h2>
               <p class="flex items-center gap-2 capitalize"><UIcon name="mdi:map-marker" class="w-6 h-6" color="currentColor" /> {{ alamat }}</p>
               <!-- <p class="flex items-center gap-2"><UIcon name="mdi:whatsapp" class="w-6 h-6" color="currentColor" /> WhatsApp: <a href="https://wa.me/6281234567890" class="underline hover:text-blue-300">+62 812-3456-7890</a></p> -->
-              <p v-for="contact in contact_list" class="flex items-center gap-2 capitalize"><UIcon :name="contact.icon" class="w-6 h-6" color="currentColor" /> {{ contact.platform }}: <PrismicLink :field="contact.link" /></p>
+              <p v-for="contact in contact_list" class="flex items-center gap-2"><UIcon :name="contact.icon" class="w-6 h-6" color="currentColor" /> {{ contact.platform }}: <PrismicLink :field="contact.link" /></p>
             </div>
           </div>
 
