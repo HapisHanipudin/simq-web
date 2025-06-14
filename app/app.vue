@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { components } from "~/slices";
 
+useHead({
+  titleTemplate: "%s | Hapis Hanipudin",
+});
+
 const prismic = usePrismic();
 const { data: page } = await useAsyncData("[root]", () => prismic.client.getSingle("root"));
 
