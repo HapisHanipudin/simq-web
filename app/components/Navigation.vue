@@ -2,9 +2,10 @@
 import type { NavigationMenuItem, AccordionItem } from "@nuxt/ui";
 import { ref, watch } from "vue";
 
-const props = defineProps({
-  isAccordion: Boolean,
-});
+const { isAccordion, icon } = defineProps<{
+  isAccordion: any;
+  icon: any;
+}>();
 
 const navItems = ref<NavigationMenuItem[]>([
   {
@@ -92,7 +93,7 @@ const accordionItems = ref<AccordionItem[]>([
 const open = ref(true);
 
 watch(
-  () => props.isAccordion,
+  () => isAccordion,
   (newVal) => {
     open.value = newVal;
   }
@@ -106,7 +107,9 @@ const toggleAccordion = () => {
 <template>
   <div class="fixed top-0 left-0 w-full px-8 py-4 bg-white/70 backdrop-blur-lg flex flex-col gap-4">
     <div class="w-full flex items-center justify-between">
-      <span class="truncate">Website SIMQ</span>
+      <PrismicImage class="mb-5 w-8 h-auto" :field="icon" />
+
+      <!-- <span class="truncate">Website SIMQ</span> -->
       <UNavigationMenu class="max-xl:hidden" orientation="horizontal" :items="navItems" />
       <UButton class="xl:hidden" variant="ghost" icon="i-lucide-menu" @click="toggleAccordion" />
     </div>

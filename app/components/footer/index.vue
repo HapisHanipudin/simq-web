@@ -35,10 +35,7 @@
 const { description, icon, social_links, copyright } = defineProps<{
   description: any;
   icon: any;
-  social_links: {
-    icon: any;
-    link: any;
-  }[];
+  social_links: any[];
   copyright: any;
 }>();
 </script>

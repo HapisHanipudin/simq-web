@@ -3,7 +3,7 @@
     <!-- Hero Section -->
     <section class="bg-white py-20">
       <div class="container mx-auto px-4 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-green-800"><PrismicRichText :field="title" /></h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-primary-800"><PrismicRichText :field="title" /></h1>
         <p class="mt-4 text-gray-600 max-w-2xl mx-auto"><PrismicRichText :field="description" /></p>
         <UButton size="xl" class="mt-8"> <PrismicLink :field="cta" /> </UButton>
         <!-- <img src="https://www.bunayahebat.com/assets/islamkid.png" alt="Ilustrasi" class="mx-auto mt-12 max-w-md" /> -->
@@ -12,7 +12,7 @@
     </section>
 
     <!-- Prosedur Pendaftaran -->
-    <section class="bg-green-700 text-white py-20">
+    <section class="bg-primary-700 text-white py-20">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Prosedur Pendaftaran</h2>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
@@ -29,7 +29,7 @@
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Ketentuan & Persyaratan PPDB</h2>
         <div v-for="item in requirements" class="bg-white p-6 rounded-2xl shadow-md mb-12">
-          <h3 class="text-2xl font-semibold text-green-800 mb-4">{{ item.requirement_title }}</h3>
+          <h3 class="text-2xl font-semibold text-primary-800 mb-4">{{ item.requirement_title }}</h3>
           <p class="text-gray-700 whitespace-pre-line">
             <PrismicRichText :field="item.requirement_details" />
           </p>

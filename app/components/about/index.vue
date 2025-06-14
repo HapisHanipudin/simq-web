@@ -1,12 +1,12 @@
 <template>
   <div id="#tentang">
-    <div class="py-20 px-5 lg:px-10 min-h-screen flex items-center justify-center text-white bg-emerald-700">
+    <div class="py-20 px-5 lg:px-10 min-h-screen flex items-center justify-center text-white bg-primary-700">
       <div class="grid container grid-cols-1 lg:grid-cols-3">
         <div class="h-full">
           <PrismicImage class="h-full object-cover rounded-bl-[3.5rem] rounded-tr-[3.5rem] rounded-tl-xl rounded-br-xl" :field="image" />
           <!-- <img class="h-full object-cover rounded-bl-[3.5rem] rounded-tr-[3.5rem] rounded-tl-xl rounded-br-xl" src="https://picsum.photos/700" alt="" /> -->
         </div>
-        <div class="col-span-2 lg:ml-20 py-5">
+        <div class="col-span-2 lg:ml-20 py-5 flex items-center">
           <div>
             <h2 class="text-4xl lg:text-5xl uppercase font-semibold">{{ title }}</h2>
             <div class="duration-300 text-slate-300 w-36 lg:w-48 h-0.5 mt-3 mb-4 bg-primary"></div>

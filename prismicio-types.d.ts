@@ -4,6 +4,67 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type AboutDocumentDataSlicesSlice = MediaTextSlice;
+
+/**
+ * Content for About documents
+ */
+interface AboutDocumentData {
+  /**
+   * Slice Zone field in *About*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
+   * Meta Title field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: about.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *About*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: about.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *About*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: about.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * About document from Prismic
+ *
+ * - **API ID**: `about`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type AboutDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<AboutDocumentData>, "about", Lang>;
+
 type FooterDocumentDataSlicesSlice = FooterSlice;
 
 /**
@@ -69,10 +130,7 @@ export type FooterDocument<Lang extends string = string> =
     Lang
   >;
 
-type HomeDocumentDataSlicesSlice =
-  | MediaTextSlice
-  | ContentImageSideSlice
-  | HeroWithCtaSlice;
+type HomeDocumentDataSlicesSlice = HeroWithCtaSlice;
 
 /**
  * Content for Homepage documents
@@ -449,14 +507,212 @@ export type ProgramDivisiDocument<Lang extends string = string> =
     Lang
   >;
 
+/**
+ * Item in *Nav&Footer → Social Media*
+ */
+export interface RootDocumentDataSocmedListItem {
+  /**
+   * Ikon Kontak field in *Nav&Footer → Social Media*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
+   * - **API ID Path**: root.socmed_list[].icon
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  icon: prismic.KeyTextField;
+
+  /**
+   * Link Kontak field in *Nav&Footer → Social Media*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.socmed_list[].link
+   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   */
+  link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
+}
+
+type RootDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Nav&Footer documents
+ */
+interface RootDocumentData {
+  /**
+   * Logo field in *Nav&Footer*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.icon
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  icon: prismic.ImageField<never>;
+
+  /**
+   * Description field in *Nav&Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.description
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  description: prismic.KeyTextField;
+
+  /**
+   * Copyright field in *Nav&Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.copyright
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  copyright: prismic.KeyTextField;
+
+  /**
+   * Social Media field in *Nav&Footer*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.socmed_list[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#group
+   */
+  socmed_list: prismic.GroupField<Simplify<RootDocumentDataSocmedListItem>>;
+
+  /**
+   * Slice Zone field in *Nav&Footer*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<RootDocumentDataSlicesSlice> /**
+   * Meta Title field in *Nav&Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: root.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Nav&Footer*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: root.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Nav&Footer*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: root.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Nav&Footer document from Prismic
+ *
+ * - **API ID**: `root`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type RootDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<Simplify<RootDocumentData>, "root", Lang>;
+
+type VisiMisiDocumentDataSlicesSlice = ContentImageSideSlice;
+
+/**
+ * Content for Visi Misi documents
+ */
+interface VisiMisiDocumentData {
+  /**
+   * Slice Zone field in *Visi Misi*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: visi_misi.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/field#slices
+   */
+  slices: prismic.SliceZone<VisiMisiDocumentDataSlicesSlice> /**
+   * Meta Title field in *Visi Misi*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: visi_misi.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Visi Misi*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: visi_misi.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#key-text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Visi Misi*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: visi_misi.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/field#image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Visi Misi document from Prismic
+ *
+ * - **API ID**: `visi_misi`
+ * - **Repeatable**: `false`
+ * - **Documentation**: https://prismic.io/docs/custom-types
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type VisiMisiDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithoutUID<
+    Simplify<VisiMisiDocumentData>,
+    "visi_misi",
+    Lang
+  >;
+
 export type AllDocumentTypes =
+  | AboutDocument
   | FooterDocument
   | HomeDocument
   | JadwalSantriDocument
   | KontakDocument
   | KontakkDocument
   | PendaftaranDocument
-  | ProgramDivisiDocument;
+  | ProgramDivisiDocument
+  | RootDocument
+  | VisiMisiDocument;
 
 /**
  * Item in *Pendaftaran → Default → Primary → Procedural Steps*
@@ -1248,6 +1504,9 @@ declare module "@prismicio/client" {
 
   namespace Content {
     export type {
+      AboutDocument,
+      AboutDocumentData,
+      AboutDocumentDataSlicesSlice,
       FooterDocument,
       FooterDocumentData,
       FooterDocumentDataSlicesSlice,
@@ -1268,6 +1527,13 @@ declare module "@prismicio/client" {
       ProgramDivisiDocument,
       ProgramDivisiDocumentData,
       ProgramDivisiDocumentDataSlicesSlice,
+      RootDocument,
+      RootDocumentData,
+      RootDocumentDataSocmedListItem,
+      RootDocumentDataSlicesSlice,
+      VisiMisiDocument,
+      VisiMisiDocumentData,
+      VisiMisiDocumentDataSlicesSlice,
       AllDocumentTypes,
       AdmissionsFlowSlice,
       AdmissionsFlowSliceDefaultPrimaryStepsItem,
