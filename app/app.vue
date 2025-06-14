@@ -2,7 +2,7 @@
 import { components } from "~/slices";
 
 useHead({
-  titleTemplate: "%s | Hapis Hanipudin",
+  titleTemplate: "%s | SIMQ",
 });
 
 const prismic = usePrismic();
