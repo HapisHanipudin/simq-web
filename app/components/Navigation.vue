@@ -107,7 +107,7 @@ const toggleAccordion = () => {
 <template>
   <div class="fixed top-0 left-0 w-full px-8 py-4 bg-white/70 backdrop-blur-lg flex flex-col gap-4">
     <div class="w-full flex items-center justify-between">
-      <PrismicImage class="mb-5 w-8 h-auto" :field="icon" />
+      <PrismicImage class="w-8 h-auto" :field="icon" />
 
       <!-- <span class="truncate">Website SIMQ</span> -->
       <UNavigationMenu class="max-xl:hidden" orientation="horizontal" :items="navItems" />
