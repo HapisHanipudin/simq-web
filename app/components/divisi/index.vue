@@ -1,5 +1,5 @@
 <template>
-  <UContainer class="py-4 min-h-screen space-y-4">
+  <UContainer :class="{ 'min-h-screen': isProgramRoute }" class="py-4 space-y-4">
     <h1 class="text-2xl font-bold">{{ title }}</h1>
     <UTabs size="xl" :ui="{ root: 'items-start ', trigger: 'min-w-60', content: 'mx-10' }" orientation="vertical" color="primary" :items="items" class="w-full max-md:hidden">
       <template #content="{ item }">
@@ -15,6 +15,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useRoute } from "vue-router";
+
 const {
   title = "Default Title",
   items = [
@@ -25,6 +27,9 @@ const {
   title: any; // BEGIN: Define title prop
   items: any[]; // NEW: Define items prop
 }>();
+
+const route = useRoute();
+const isProgramRoute = route.path.startsWith("/program"); // BEGIN: Check if route starts with "/program"
 </script>
 
 <style></style>
