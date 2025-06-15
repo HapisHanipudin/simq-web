@@ -4,4 +4,7 @@
   <JumbotronPage />
   <VisimisiPage />
   <AboutPage />
+  <JadwalSantriPage />
+  <PendaftaranPage />
+  <ContactPage />
 </template>

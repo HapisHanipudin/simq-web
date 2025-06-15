@@ -1,6 +1,6 @@
 <template>
   <div id="#tentang">
-    <div class="py-20 px-5 lg:px-10 min-h-screen flex items-center justify-center text-white bg-primary-700">
+    <div class="py-20 px-5 lg:px-10 flex items-center justify-center text-white bg-primary-700">
       <div class="grid container grid-cols-1 lg:grid-cols-3">
         <div class="h-full">
           <PrismicImage class="h-full object-cover rounded-bl-[3.5rem] rounded-tr-[3.5rem] rounded-tl-xl rounded-br-xl" :field="image" />

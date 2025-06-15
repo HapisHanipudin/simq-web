@@ -1,7 +1,12 @@
 <template>
   <UContainer class="mt-20 py-4 min-h-screen space-y-4">
-    <h1 class="text-2xl font-bold">Program Divisi {{ title }}</h1>
-    <UTabs :ui="{ root: 'items-start' }" orientation="vertical" color="primary" :items="items" class="w-full">
+    <h1 class="text-2xl font-bold">{{ title }}</h1>
+    <UTabs size="xl" :ui="{ root: 'items-start ', trigger: 'min-w-60', content: 'mx-10' }" orientation="vertical" color="primary" :items="items" class="w-full max-md:hidden">
+      <template #content="{ item }">
+        <PrismicRichText :field="item.tab_content" />
+      </template>
+    </UTabs>
+    <UTabs size="xl" :ui="{ root: 'items-start' }" orientation="horizontal" color="primary" :items="items" class="w-full md:hidden">
       <template #content="{ item }">
         <PrismicRichText :field="item.tab_content" />
       </template>

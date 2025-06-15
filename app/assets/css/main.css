@@ -5,7 +5,7 @@
   --font-sans: "Plus Jakarta Sans", sans-serif;
   --font-poppins: "Poppins", sans-serif;
 
-  --color-primary: #007f45;
+  --color-primary: #1e83ae;
 
   --color-green-50: #effdf5;
   --color-green-100: #d9fbe8;
@@ -19,15 +19,15 @@
   --color-green-900: #0a5331;
   --color-green-950: #052e16;
 
-  --color-primary-50: #effdf5;
-  --color-primary-100: #d9fbe8;
-  --color-primary-200: #b3f5d1;
-  --color-primary-300: #75edae;
-  --color-primary-400: #00dc82;
-  --color-primary-500: #00c16a;
-  --color-primary-600: #00a155;
-  --color-primary-700: #007f45;
-  --color-primary-800: #016538;
-  --color-primary-900: #0a5331;
-  --color-primary-950: #052e16;
+  --color-primary-50: #f2f9fd;
+  --color-primary-100: #e4f2fa;
+  --color-primary-200: #c3e5f4;
+  --color-primary-300: #8fd1ea;
+  --color-primary-400: #53b9dd;
+  --color-primary-500: #2da0ca;
+  --color-primary-600: #1e83ae;
+  --color-primary-700: #19688b;
+  --color-primary-800: #195873;
+  --color-primary-900: #1a4960;
+  --color-primary-950: #112f40;
 }

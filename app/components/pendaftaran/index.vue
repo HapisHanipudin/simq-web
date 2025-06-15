@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="bg-white py-20">
+    <section class="bg-white">
       <div class="container mx-auto px-4 text-center">
         <h1 class="text-4xl md:text-5xl font-bold text-primary-800"><PrismicRichText :field="title" /></h1>
         <p class="mt-4 text-gray-600 max-w-2xl mx-auto"><PrismicRichText :field="description" /></p>

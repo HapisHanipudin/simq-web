@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="min-h-screen">
     <UContainer>
-      <div class="flex items-end h-[20vh] pb-8">
+      <div class="flex items-end py-8">
         <h1 class="text-4xl font-bold">Kontak & Informasi</h1>
       </div>
     </UContainer>
@@ -13,11 +13,30 @@
           <div class="space-y-6">
             <ContactForm />
             <!-- Contact Info -->
-            <div class="text-white space-y-3">
+            <div class="text-white">
               <h2 class="text-2xl font-semibold">Informasi Kontak</h2>
-              <p class="flex items-center gap-2 capitalize"><UIcon name="mdi:map-marker" class="w-6 h-6" color="currentColor" /> {{ alamat }}</p>
-              <!-- <p class="flex items-center gap-2"><UIcon name="mdi:whatsapp" class="w-6 h-6" color="currentColor" /> WhatsApp: <a href="https://wa.me/6281234567890" class="underline hover:text-blue-300">+62 812-3456-7890</a></p> -->
-              <p v-for="contact in contact_list" class="flex items-center gap-2"><UIcon :name="contact.icon" class="w-6 h-6" color="currentColor" /> {{ contact.platform }}: <PrismicLink :field="contact.link" /></p>
+              <table class="min-w-full divide-y">
+                <tbody class="divide-y">
+                  <tr>
+                    <td class="px-2 py-3">
+                      <div class="flex items-center h-full">
+                        <UIcon name="mdi:map-marker" class="w-6 h-6" color="currentColor" />
+                      </div>
+                    </td>
+                    <td class="px-2 py-3">Alamat</td>
+                    <td class="px-2 py-3">{{ alamat }}</td>
+                  </tr>
+                  <tr v-for="contact in contact_list" :key="contact.platform">
+                    <td class="px-2 py-3">
+                      <div class="flex items-center h-full">
+                        <UIcon :name="contact.icon" class="w-6 h-6" color="currentColor" />
+                      </div>
+                    </td>
+                    <td class="px-2 py-3">{{ contact.platform }}</td>
+                    <td class="px-2 py-3"><PrismicLink :field="contact.link" /></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
 

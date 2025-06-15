@@ -28,14 +28,14 @@ const navItems = ref<NavigationMenuItem[]>([
     ],
   },
   {
-    label: "Divisi",
+    label: "Program",
     icon: "i-lucide-layers",
     children: [
       {
         label: "Tahfizh",
         icon: "i-lucide-book",
         to: "/program/tahfizh",
-        description: "Divisi penguatan hafalan Qur'an.",
+        description: "Program penguatan hafalan Qur'an.",
       },
       // {
       //   label: "IT",
@@ -53,7 +53,7 @@ const navItems = ref<NavigationMenuItem[]>([
         label: "Bisnis",
         icon: "i-lucide-briefcase",
         to: "/program/bisnis",
-        description: "Divisi wirausaha dan pengembangan bisnis.",
+        description: "Program wirausaha dan pengembangan bisnis.",
       },
     ],
   },

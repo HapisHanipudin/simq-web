@@ -6,7 +6,7 @@
         <div class="flex max-md:justify-center">
           <div class="flex flex-col justify-center gap-4">
             <div class="flex flex-col gap-2">
-              <h3 class="text-2xl md:text-3xl font-semibold">Visi dan Tujuan</h3>
+              <h3 class="text-2xl md:text-3xl font-semibold">Visi</h3>
               <p class="text-justify text-lg">{{ visi }}</p>
             </div>
             <div class="flex flex-col gap-2">

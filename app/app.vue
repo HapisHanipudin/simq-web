@@ -25,7 +25,7 @@ function closeAccordion() {
   <UApp>
     <Navigation :icon="page?.data.icon" :isAccordion="isAccordion" @toggleAccordion="toggleAccordion" style="z-index: 99999999" />
     <div class="flex w-full min-h-screen justify-center flex-col gap-10" @click="closeAccordion">
-      <NuxtPage />
+      <NuxtPage class="mt-20" />
     </div>
     <Footer :copyright="page?.data.copyright" :social_links="page?.data.socmed_list || []" :icon="page?.data.icon" :description="page?.data.description" />
   </UApp>
