@@ -1,5 +1,5 @@
 <template>
-  <UContainer class="mt-20 py-4 min-h-screen space-y-4">
+  <UContainer class="py-4 min-h-screen space-y-4">
     <h1 class="text-2xl font-bold">{{ title }}</h1>
     <UTabs size="xl" :ui="{ root: 'items-start ', trigger: 'min-w-60', content: 'mx-10' }" orientation="vertical" color="primary" :items="items" class="w-full max-md:hidden">
       <template #content="{ item }">
