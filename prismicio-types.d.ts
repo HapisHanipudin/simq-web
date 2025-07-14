@@ -4,6 +4,71 @@ import type * as prismic from "@prismicio/client";
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
+type PickContentRelationshipFieldData<
+  TRelationship extends
+    | prismic.CustomTypeModelFetchCustomTypeLevel1
+    | prismic.CustomTypeModelFetchCustomTypeLevel2
+    | prismic.CustomTypeModelFetchGroupLevel1
+    | prismic.CustomTypeModelFetchGroupLevel2,
+  TData extends Record<
+    string,
+    | prismic.AnyRegularField
+    | prismic.GroupField
+    | prismic.NestedGroupField
+    | prismic.SliceZone
+  >,
+  TLang extends string,
+> =
+  // Content relationship fields
+  {
+    [TSubRelationship in Extract<
+      TRelationship["fields"][number],
+      prismic.CustomTypeModelFetchContentRelationshipLevel1
+    > as TSubRelationship["id"]]: ContentRelationshipFieldWithData<
+      TSubRelationship["customtypes"],
+      TLang
+    >;
+  } & // Group
+  {
+    [TGroup in Extract<
+      TRelationship["fields"][number],
+      | prismic.CustomTypeModelFetchGroupLevel1
+      | prismic.CustomTypeModelFetchGroupLevel2
+    > as TGroup["id"]]: TData[TGroup["id"]] extends prismic.GroupField<
+      infer TGroupData
+    >
+      ? prismic.GroupField<
+          PickContentRelationshipFieldData<TGroup, TGroupData, TLang>
+        >
+      : never;
+  } & // Other fields
+  {
+    [TFieldKey in Extract<
+      TRelationship["fields"][number],
+      string
+    >]: TFieldKey extends keyof TData ? TData[TFieldKey] : never;
+  };
+
+type ContentRelationshipFieldWithData<
+  TCustomType extends
+    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel1 | string)[]
+    | readonly (prismic.CustomTypeModelFetchCustomTypeLevel2 | string)[],
+  TLang extends string = string,
+> = {
+  [ID in Exclude<
+    TCustomType[number],
+    string
+  >["id"]]: prismic.ContentRelationshipField<
+    ID,
+    TLang,
+    PickContentRelationshipFieldData<
+      Extract<TCustomType[number], { id: ID }>,
+      Extract<prismic.Content.AllDocumentTypes, { type: ID }>["data"],
+      TLang
+    >
+  >;
+}[Exclude<TCustomType[number], string>["id"]];
+
 type AboutDocumentDataSlicesSlice = MediaTextSlice;
 
 /**
@@ -17,7 +82,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<AboutDocumentDataSlicesSlice> /**
    * Meta Title field in *About*
@@ -26,7 +91,7 @@ interface AboutDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: about.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -37,7 +102,7 @@ interface AboutDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: about.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -48,7 +113,7 @@ interface AboutDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: about.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -58,7 +123,7 @@ interface AboutDocumentData {
  *
  * - **API ID**: `about`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -78,7 +143,7 @@ interface FooterDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<FooterDocumentDataSlicesSlice> /**
    * Meta Title field in *Footer*
@@ -87,7 +152,7 @@ interface FooterDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: footer.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -98,7 +163,7 @@ interface FooterDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: footer.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -109,7 +174,7 @@ interface FooterDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -119,7 +184,7 @@ interface FooterDocumentData {
  *
  * - **API ID**: `footer`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -143,7 +208,7 @@ interface HomeDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: home.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<HomeDocumentDataSlicesSlice> /**
    * Meta Title field in *Homepage*
@@ -152,7 +217,7 @@ interface HomeDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: home.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -163,7 +228,7 @@ interface HomeDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: home.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -174,7 +239,7 @@ interface HomeDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: home.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -184,7 +249,7 @@ interface HomeDocumentData {
  *
  * - **API ID**: `home`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -204,7 +269,7 @@ interface JadwalSantriDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: jadwal_santri.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<JadwalSantriDocumentDataSlicesSlice> /**
    * Meta Title field in *Jadwal Santri*
@@ -213,7 +278,7 @@ interface JadwalSantriDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: jadwal_santri.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -224,7 +289,7 @@ interface JadwalSantriDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: jadwal_santri.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -235,7 +300,7 @@ interface JadwalSantriDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: jadwal_santri.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -245,7 +310,7 @@ interface JadwalSantriDocumentData {
  *
  * - **API ID**: `jadwal_santri`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -267,7 +332,7 @@ interface KontakDocumentData {
    * - **Placeholder**: Masukkan nama kontak
    * - **API ID Path**: kontak.nama_kontak
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   nama_kontak: prismic.KeyTextField;
 
@@ -278,7 +343,7 @@ interface KontakDocumentData {
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
    * - **API ID Path**: kontak.ikon_kontak
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   ikon_kontak: prismic.KeyTextField;
 
@@ -289,7 +354,7 @@ interface KontakDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: kontak.link_kontak
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
   link_kontak: prismic.LinkField<
     string,
@@ -305,7 +370,7 @@ interface KontakDocumentData {
  *
  * - **API ID**: `kontak`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -325,7 +390,7 @@ interface KontakkDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: kontakk.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<KontakkDocumentDataSlicesSlice> /**
    * Meta Title field in *Kontakk*
@@ -334,7 +399,7 @@ interface KontakkDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: kontakk.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -345,7 +410,7 @@ interface KontakkDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: kontakk.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -356,7 +421,7 @@ interface KontakkDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: kontakk.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -366,7 +431,7 @@ interface KontakkDocumentData {
  *
  * - **API ID**: `kontakk`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -390,7 +455,7 @@ interface PendaftaranDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: pendaftaran.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<PendaftaranDocumentDataSlicesSlice> /**
    * Meta Title field in *Pendaftaran*
@@ -399,7 +464,7 @@ interface PendaftaranDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: pendaftaran.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -410,7 +475,7 @@ interface PendaftaranDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: pendaftaran.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -421,7 +486,7 @@ interface PendaftaranDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: pendaftaran.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -431,7 +496,7 @@ interface PendaftaranDocumentData {
  *
  * - **API ID**: `pendaftaran`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -455,7 +520,7 @@ interface ProgramDivisiDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: program_divisi.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<ProgramDivisiDocumentDataSlicesSlice> /**
    * Meta Title field in *Program Divisi*
@@ -464,7 +529,7 @@ interface ProgramDivisiDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: program_divisi.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -475,7 +540,7 @@ interface ProgramDivisiDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: program_divisi.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -486,7 +551,7 @@ interface ProgramDivisiDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: program_divisi.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -496,7 +561,7 @@ interface ProgramDivisiDocumentData {
  *
  * - **API ID**: `program_divisi`
  * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -504,6 +569,144 @@ export type ProgramDivisiDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<
     Simplify<ProgramDivisiDocumentData>,
     "program_divisi",
+    Lang
+  >;
+
+/**
+ * Item in *Programs → Sub*
+ */
+export interface ProgramsDocumentDataSubProgramItem {
+  /**
+   * Judul Sub Program field in *Programs → Sub*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.sub_program[].sub_title
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  sub_title: prismic.KeyTextField;
+
+  /**
+   * Harga field in *Programs → Sub*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.sub_program[].pricing
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  pricing: prismic.KeyTextField;
+
+  /**
+   * Action Button field in *Programs → Sub*
+   *
+   * - **Field Type**: Link
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.sub_program[].button
+   * - **Documentation**: https://prismic.io/docs/fields/link
+   */
+  button: prismic.LinkField<
+    string,
+    string,
+    unknown,
+    prismic.FieldState,
+    "Primary" | "Secondary"
+  >;
+
+  /**
+   * Manfaat field in *Programs → Sub*
+   *
+   * - **Field Type**: Rich Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.sub_program[].benefits
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
+   */
+  benefits: prismic.RichTextField;
+}
+
+type ProgramsDocumentDataSlicesSlice = never;
+
+/**
+ * Content for Programs documents
+ */
+interface ProgramsDocumentData {
+  /**
+   * Judul Program field in *Programs*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.title
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  title: prismic.KeyTextField;
+
+  /**
+   * Sub field in *Programs*
+   *
+   * - **Field Type**: Group
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.sub_program[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
+   */
+  sub_program: prismic.GroupField<Simplify<ProgramsDocumentDataSubProgramItem>>;
+
+  /**
+   * Slice Zone field in *Programs*
+   *
+   * - **Field Type**: Slice Zone
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.slices[]
+   * - **Tab**: Main
+   * - **Documentation**: https://prismic.io/docs/slices
+   */
+  slices: prismic.SliceZone<ProgramsDocumentDataSlicesSlice> /**
+   * Meta Title field in *Programs*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A title of the page used for social media and search engines
+   * - **API ID Path**: programs.meta_title
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */;
+  meta_title: prismic.KeyTextField;
+
+  /**
+   * Meta Description field in *Programs*
+   *
+   * - **Field Type**: Text
+   * - **Placeholder**: A brief summary of the page
+   * - **API ID Path**: programs.meta_description
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/text
+   */
+  meta_description: prismic.KeyTextField;
+
+  /**
+   * Meta Image field in *Programs*
+   *
+   * - **Field Type**: Image
+   * - **Placeholder**: *None*
+   * - **API ID Path**: programs.meta_image
+   * - **Tab**: SEO & Metadata
+   * - **Documentation**: https://prismic.io/docs/fields/image
+   */
+  meta_image: prismic.ImageField<never>;
+}
+
+/**
+ * Programs document from Prismic
+ *
+ * - **API ID**: `programs`
+ * - **Repeatable**: `true`
+ * - **Documentation**: https://prismic.io/docs/content-modeling
+ *
+ * @typeParam Lang - Language API ID of the document.
+ */
+export type ProgramsDocument<Lang extends string = string> =
+  prismic.PrismicDocumentWithUID<
+    Simplify<ProgramsDocumentData>,
+    "programs",
     Lang
   >;
 
@@ -517,7 +720,7 @@ export interface RootDocumentDataSocmedListItem {
    * - **Field Type**: Text
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
    * - **API ID Path**: root.socmed_list[].icon
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   icon: prismic.KeyTextField;
 
@@ -527,7 +730,7 @@ export interface RootDocumentDataSocmedListItem {
    * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: root.socmed_list[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
   link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
@@ -545,7 +748,7 @@ interface RootDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: root.icon
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   icon: prismic.ImageField<never>;
 
@@ -556,7 +759,7 @@ interface RootDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: root.description
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   description: prismic.KeyTextField;
 
@@ -567,7 +770,7 @@ interface RootDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: root.copyright
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   copyright: prismic.KeyTextField;
 
@@ -578,7 +781,7 @@ interface RootDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: root.socmed_list[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   socmed_list: prismic.GroupField<Simplify<RootDocumentDataSocmedListItem>>;
 
@@ -589,7 +792,7 @@ interface RootDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: root.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<RootDocumentDataSlicesSlice> /**
    * Meta Title field in *Nav&Footer*
@@ -598,7 +801,7 @@ interface RootDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: root.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -609,7 +812,7 @@ interface RootDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: root.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -620,7 +823,7 @@ interface RootDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: root.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -630,7 +833,7 @@ interface RootDocumentData {
  *
  * - **API ID**: `root`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -650,7 +853,7 @@ interface VisiMisiDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: visi_misi.slices[]
    * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/field#slices
+   * - **Documentation**: https://prismic.io/docs/slices
    */
   slices: prismic.SliceZone<VisiMisiDocumentDataSlicesSlice> /**
    * Meta Title field in *Visi Misi*
@@ -659,7 +862,7 @@ interface VisiMisiDocumentData {
    * - **Placeholder**: A title of the page used for social media and search engines
    * - **API ID Path**: visi_misi.meta_title
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */;
   meta_title: prismic.KeyTextField;
 
@@ -670,7 +873,7 @@ interface VisiMisiDocumentData {
    * - **Placeholder**: A brief summary of the page
    * - **API ID Path**: visi_misi.meta_description
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   meta_description: prismic.KeyTextField;
 
@@ -681,7 +884,7 @@ interface VisiMisiDocumentData {
    * - **Placeholder**: *None*
    * - **API ID Path**: visi_misi.meta_image
    * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   meta_image: prismic.ImageField<never>;
 }
@@ -691,7 +894,7 @@ interface VisiMisiDocumentData {
  *
  * - **API ID**: `visi_misi`
  * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/custom-types
+ * - **Documentation**: https://prismic.io/docs/content-modeling
  *
  * @typeParam Lang - Language API ID of the document.
  */
@@ -711,6 +914,7 @@ export type AllDocumentTypes =
   | KontakkDocument
   | PendaftaranDocument
   | ProgramDivisiDocument
+  | ProgramsDocument
   | RootDocument
   | VisiMisiDocument;
 
@@ -721,12 +925,12 @@ export interface AdmissionsFlowSliceDefaultPrimaryStepsItem {
   /**
    * Step Title field in *Pendaftaran → Default → Primary → Procedural Steps*
    *
-   * - **Field Type**: Title
+   * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.steps[].step_title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  step_title: prismic.TitleField;
+  step_title: prismic.RichTextField;
 
   /**
    * Step Description field in *Pendaftaran → Default → Primary → Procedural Steps*
@@ -734,7 +938,7 @@ export interface AdmissionsFlowSliceDefaultPrimaryStepsItem {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.steps[].step_description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   step_description: prismic.RichTextField;
 }
@@ -749,7 +953,7 @@ export interface AdmissionsFlowSliceDefaultPrimaryRequirementsItem {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.requirements[].requirement_title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   requirement_title: prismic.KeyTextField;
 
@@ -759,7 +963,7 @@ export interface AdmissionsFlowSliceDefaultPrimaryRequirementsItem {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.requirements[].requirement_details
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   requirement_details: prismic.RichTextField;
 }
@@ -771,12 +975,12 @@ export interface AdmissionsFlowSliceDefaultPrimary {
   /**
    * Main Title field in *Pendaftaran → Default → Primary*
    *
-   * - **Field Type**: Title
+   * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.main_title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  main_title: prismic.TitleField;
+  main_title: prismic.RichTextField;
 
   /**
    * Main Description field in *Pendaftaran → Default → Primary*
@@ -784,7 +988,7 @@ export interface AdmissionsFlowSliceDefaultPrimary {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.main_description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   main_description: prismic.RichTextField;
 
@@ -794,7 +998,7 @@ export interface AdmissionsFlowSliceDefaultPrimary {
    * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.cta_button
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
   cta_button: prismic.LinkField<
     string,
@@ -810,7 +1014,7 @@ export interface AdmissionsFlowSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.visual_image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   visual_image: prismic.ImageField<never>;
 
@@ -820,7 +1024,7 @@ export interface AdmissionsFlowSliceDefaultPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.steps[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   steps: prismic.GroupField<
     Simplify<AdmissionsFlowSliceDefaultPrimaryStepsItem>
@@ -829,12 +1033,12 @@ export interface AdmissionsFlowSliceDefaultPrimary {
   /**
    * Requirements Heading field in *Pendaftaran → Default → Primary*
    *
-   * - **Field Type**: Title
+   * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.requirements_heading
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  requirements_heading: prismic.TitleField;
+  requirements_heading: prismic.RichTextField;
 
   /**
    * Requirements List field in *Pendaftaran → Default → Primary*
@@ -842,7 +1046,7 @@ export interface AdmissionsFlowSliceDefaultPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: admissions_flow.default.primary.requirements[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   requirements: prismic.GroupField<
     Simplify<AdmissionsFlowSliceDefaultPrimaryRequirementsItem>
@@ -854,7 +1058,7 @@ export interface AdmissionsFlowSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Standard layout combining introductory info, procedural steps, and expandable requirement sections.
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type AdmissionsFlowSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -872,7 +1076,7 @@ type AdmissionsFlowSliceVariation = AdmissionsFlowSliceDefault;
  *
  * - **API ID**: `admissions_flow`
  * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type AdmissionsFlowSlice = prismic.SharedSlice<
   "admissions_flow",
@@ -889,7 +1093,7 @@ export interface ContentImageSideSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: content_image_side.default.primary.visi
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   visi: prismic.KeyTextField;
 
@@ -899,7 +1103,7 @@ export interface ContentImageSideSliceDefaultPrimary {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: content_image_side.default.primary.content
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   content: prismic.RichTextField;
 
@@ -909,7 +1113,7 @@ export interface ContentImageSideSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: content_image_side.default.primary.side_image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   side_image: prismic.ImageField<never>;
 }
@@ -919,7 +1123,7 @@ export interface ContentImageSideSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Standard layout with main content and one image aligned side by side.
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type ContentImageSideSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -937,7 +1141,7 @@ type ContentImageSideSliceVariation = ContentImageSideSliceDefault;
  *
  * - **API ID**: `content_image_side`
  * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type ContentImageSideSlice = prismic.SharedSlice<
   "content_image_side",
@@ -954,7 +1158,7 @@ export interface FooterSliceDefaultPrimarySocmedListItem {
    * - **Field Type**: Text
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
    * - **API ID Path**: footer.default.primary.socmed_list[].icon
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   icon: prismic.KeyTextField;
 
@@ -964,7 +1168,7 @@ export interface FooterSliceDefaultPrimarySocmedListItem {
    * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.default.primary.socmed_list[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
   link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
@@ -979,7 +1183,7 @@ export interface FooterSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.default.primary.icon
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   icon: prismic.ImageField<never>;
 
@@ -989,7 +1193,7 @@ export interface FooterSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.default.primary.description
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   description: prismic.KeyTextField;
 
@@ -999,7 +1203,7 @@ export interface FooterSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.default.primary.copyright
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   copyright: prismic.KeyTextField;
 
@@ -1009,7 +1213,7 @@ export interface FooterSliceDefaultPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: footer.default.primary.socmed_list[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   socmed_list: prismic.GroupField<
     Simplify<FooterSliceDefaultPrimarySocmedListItem>
@@ -1021,7 +1225,7 @@ export interface FooterSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type FooterSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -1039,7 +1243,7 @@ type FooterSliceVariation = FooterSliceDefault;
  *
  * - **API ID**: `footer`
  * - **Description**: Footer
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type FooterSlice = prismic.SharedSlice<"footer", FooterSliceVariation>;
 
@@ -1053,7 +1257,7 @@ export interface HeroWithCtaSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_with_cta.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -1063,7 +1267,7 @@ export interface HeroWithCtaSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_with_cta.default.primary.description
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   description: prismic.KeyTextField;
 
@@ -1073,7 +1277,7 @@ export interface HeroWithCtaSliceDefaultPrimary {
    * - **Field Type**: Link
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_with_cta.default.primary.cta
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
   cta: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 
@@ -1083,7 +1287,7 @@ export interface HeroWithCtaSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: hero_with_cta.default.primary.background_image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   background_image: prismic.ImageField<never>;
 }
@@ -1093,7 +1297,7 @@ export interface HeroWithCtaSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Hero with heading, description, CTA button, and background image.
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroWithCtaSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -1111,7 +1315,7 @@ type HeroWithCtaSliceVariation = HeroWithCtaSliceDefault;
  *
  * - **API ID**: `hero_with_cta`
  * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type HeroWithCtaSlice = prismic.SharedSlice<
   "hero_with_cta",
@@ -1128,7 +1332,7 @@ export interface KontakSliceDefaultPrimaryContactListItem {
    * - **Field Type**: Text
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
    * - **API ID Path**: kontak.default.primary.contact_list[].icon
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   icon: prismic.KeyTextField;
 
@@ -1138,7 +1342,7 @@ export interface KontakSliceDefaultPrimaryContactListItem {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: kontak.default.primary.contact_list[].platform
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   platform: prismic.KeyTextField;
 
@@ -1148,7 +1352,7 @@ export interface KontakSliceDefaultPrimaryContactListItem {
    * - **Field Type**: Link
    * - **Placeholder**: Masukan Label Kontak di sini
    * - **API ID Path**: kontak.default.primary.contact_list[].link
-   * - **Documentation**: https://prismic.io/docs/field#link-content-relationship
+   * - **Documentation**: https://prismic.io/docs/fields/link
    */
   link: prismic.LinkField<string, string, unknown, prismic.FieldState, never>;
 }
@@ -1163,7 +1367,7 @@ export interface KontakSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: kontak.default.primary.alamat
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   alamat: prismic.KeyTextField;
 
@@ -1173,7 +1377,7 @@ export interface KontakSliceDefaultPrimary {
    * - **Field Type**: GeoPoint
    * - **Placeholder**: *None*
    * - **API ID Path**: kontak.default.primary.gmaps
-   * - **Documentation**: https://prismic.io/docs/field#geopoint
+   * - **Documentation**: https://prismic.io/docs/fields/geopoint
    */
   gmaps: prismic.GeoPointField;
 
@@ -1183,7 +1387,7 @@ export interface KontakSliceDefaultPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: kontak.default.primary.contact_list[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   contact_list: prismic.GroupField<
     Simplify<KontakSliceDefaultPrimaryContactListItem>
@@ -1195,7 +1399,7 @@ export interface KontakSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Default
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type KontakSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -1213,7 +1417,7 @@ type KontakSliceVariation = KontakSliceDefault;
  *
  * - **API ID**: `kontak`
  * - **Description**: Kontak
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type KontakSlice = prismic.SharedSlice<"kontak", KontakSliceVariation>;
 
@@ -1232,7 +1436,7 @@ export interface MediaTextSliceImageLeftTextRightPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: media_text.image_left_text_right.primary.judul
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   judul: prismic.KeyTextField;
 
@@ -1242,7 +1446,7 @@ export interface MediaTextSliceImageLeftTextRightPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: media_text.image_left_text_right.primary.media
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   media: prismic.ImageField<never>;
 
@@ -1252,7 +1456,7 @@ export interface MediaTextSliceImageLeftTextRightPrimary {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: media_text.image_left_text_right.primary.description
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   description: prismic.RichTextField;
 
@@ -1262,7 +1466,7 @@ export interface MediaTextSliceImageLeftTextRightPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: media_text.image_left_text_right.primary.socmed_list[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   socmed_list: prismic.GroupField<
     Simplify<MediaTextSliceImageLeftTextRightPrimarySocmedListItem>
@@ -1274,7 +1478,7 @@ export interface MediaTextSliceImageLeftTextRightPrimary {
  *
  * - **API ID**: `image_left_text_right`
  * - **Description**: Displays the image or media on the left and heading with text content on the right.
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type MediaTextSliceImageLeftTextRight = prismic.SharedSliceVariation<
   "image_left_text_right",
@@ -1292,11 +1496,41 @@ type MediaTextSliceVariation = MediaTextSliceImageLeftTextRight;
  *
  * - **API ID**: `media_text`
  * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type MediaTextSlice = prismic.SharedSlice<
   "media_text",
   MediaTextSliceVariation
+>;
+
+/**
+ * Default variation for Programs Slice
+ *
+ * - **API ID**: `default`
+ * - **Description**: Default
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProgramsSliceDefault = prismic.SharedSliceVariation<
+  "default",
+  Record<string, never>,
+  never
+>;
+
+/**
+ * Slice variation for *Programs*
+ */
+type ProgramsSliceVariation = ProgramsSliceDefault;
+
+/**
+ * Programs Shared Slice
+ *
+ * - **API ID**: `programs`
+ * - **Description**: Programs
+ * - **Documentation**: https://prismic.io/docs/slices
+ */
+export type ProgramsSlice = prismic.SharedSlice<
+  "programs",
+  ProgramsSliceVariation
 >;
 
 /**
@@ -1309,7 +1543,7 @@ export interface TabbedFeatureListSliceDefaultPrimaryTabsItem {
    * - **Field Type**: Text
    * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
    * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].icon
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   icon: prismic.KeyTextField;
 
@@ -1319,7 +1553,7 @@ export interface TabbedFeatureListSliceDefaultPrimaryTabsItem {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].label
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   label: prismic.KeyTextField;
 
@@ -1329,7 +1563,7 @@ export interface TabbedFeatureListSliceDefaultPrimaryTabsItem {
    * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].tab_content
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
   tab_content: prismic.RichTextField;
 }
@@ -1344,7 +1578,7 @@ export interface TabbedFeatureListSliceDefaultPrimary {
    * - **Field Type**: Text
    * - **Placeholder**: Judul Halaman
    * - **API ID Path**: tabbed_feature_list.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   title: prismic.KeyTextField;
 
@@ -1354,7 +1588,7 @@ export interface TabbedFeatureListSliceDefaultPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: tabbed_feature_list.default.primary.tabs[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   tabs: prismic.GroupField<
     Simplify<TabbedFeatureListSliceDefaultPrimaryTabsItem>
@@ -1366,7 +1600,7 @@ export interface TabbedFeatureListSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Standard tabbed display with a list of tabs and associated content for each tab.
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type TabbedFeatureListSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -1384,7 +1618,7 @@ type TabbedFeatureListSliceVariation = TabbedFeatureListSliceDefault;
  *
  * - **API ID**: `tabbed_feature_list`
  * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type TabbedFeatureListSlice = prismic.SharedSlice<
   "tabbed_feature_list",
@@ -1401,7 +1635,7 @@ export interface TimetableListSliceDefaultPrimaryPeriodsItem {
    * - **Field Type**: Text
    * - **Placeholder**: *None*
    * - **API ID Path**: timetable_list.default.primary.periods[].period_name
-   * - **Documentation**: https://prismic.io/docs/field#key-text
+   * - **Documentation**: https://prismic.io/docs/fields/text
    */
   period_name: prismic.KeyTextField;
 
@@ -1411,7 +1645,7 @@ export interface TimetableListSliceDefaultPrimaryPeriodsItem {
    * - **Field Type**: Table
    * - **Placeholder**: *None*
    * - **API ID Path**: timetable_list.default.primary.periods[].schedule
-   * - **Documentation**: https://prismic.io/docs/field#table
+   * - **Documentation**: https://prismic.io/docs/fields/table
    */
   schedule: prismic.TableField;
 }
@@ -1423,12 +1657,12 @@ export interface TimetableListSliceDefaultPrimary {
   /**
    * Title field in *JadwalSantri → Default → Primary*
    *
-   * - **Field Type**: Title
+   * - **Field Type**: Rich Text
    * - **Placeholder**: *None*
    * - **API ID Path**: timetable_list.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+   * - **Documentation**: https://prismic.io/docs/fields/rich-text
    */
-  title: prismic.TitleField;
+  title: prismic.RichTextField;
 
   /**
    * Gambar field in *JadwalSantri → Default → Primary*
@@ -1436,7 +1670,7 @@ export interface TimetableListSliceDefaultPrimary {
    * - **Field Type**: Image
    * - **Placeholder**: *None*
    * - **API ID Path**: timetable_list.default.primary.image
-   * - **Documentation**: https://prismic.io/docs/field#image
+   * - **Documentation**: https://prismic.io/docs/fields/image
    */
   image: prismic.ImageField<never>;
 
@@ -1446,7 +1680,7 @@ export interface TimetableListSliceDefaultPrimary {
    * - **Field Type**: Group
    * - **Placeholder**: *None*
    * - **API ID Path**: timetable_list.default.primary.periods[]
-   * - **Documentation**: https://prismic.io/docs/field#group
+   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
    */
   periods: prismic.GroupField<
     Simplify<TimetableListSliceDefaultPrimaryPeriodsItem>
@@ -1458,7 +1692,7 @@ export interface TimetableListSliceDefaultPrimary {
  *
  * - **API ID**: `default`
  * - **Description**: Displays a heading and a list of time periods, each with multiple activities.
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type TimetableListSliceDefault = prismic.SharedSliceVariation<
   "default",
@@ -1476,7 +1710,7 @@ type TimetableListSliceVariation = TimetableListSliceDefault;
  *
  * - **API ID**: `timetable_list`
  * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slice
+ * - **Documentation**: https://prismic.io/docs/slices
  */
 export type TimetableListSlice = prismic.SharedSlice<
   "timetable_list",
@@ -1527,6 +1761,10 @@ declare module "@prismicio/client" {
       ProgramDivisiDocument,
       ProgramDivisiDocumentData,
       ProgramDivisiDocumentDataSlicesSlice,
+      ProgramsDocument,
+      ProgramsDocumentData,
+      ProgramsDocumentDataSubProgramItem,
+      ProgramsDocumentDataSlicesSlice,
       RootDocument,
       RootDocumentData,
       RootDocumentDataSocmedListItem,
@@ -1564,6 +1802,9 @@ declare module "@prismicio/client" {
       MediaTextSliceImageLeftTextRightPrimary,
       MediaTextSliceVariation,
       MediaTextSliceImageLeftTextRight,
+      ProgramsSlice,
+      ProgramsSliceVariation,
+      ProgramsSliceDefault,
       TabbedFeatureListSlice,
       TabbedFeatureListSliceDefaultPrimaryTabsItem,
       TabbedFeatureListSliceDefaultPrimary,

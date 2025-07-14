@@ -1,10 +1,10 @@
 <template>
-  <UTabs :items="items" size="xl">
+  <!-- <UTabs :items="items" size="xl">
     <template #tahfizh> <DivisiTahfizh /> </template>
     <template #bisnis>
       <DivisiBisnis />
     </template>
-  </UTabs>
+  </UTabs> -->
 </template>
 
 <script lang="ts" setup>

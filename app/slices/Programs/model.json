@@ -1,0 +1,16 @@
+{
+  "id": "programs",
+  "type": "SharedSlice",
+  "name": "Programs",
+  "description": "Programs",
+  "variations": [
+    {
+      "id": "default",
+      "name": "Default",
+      "docURL": "...",
+      "version": "initial",
+      "description": "Default",
+      "imageUrl": ""
+    }
+  ]
+}

@@ -4,8 +4,8 @@
   <JumbotronPage />
   <VisimisiPage />
   <AboutPage />
-  <DivisiPage />
   <JadwalSantriPage />
+  <ProgramPage />
   <PendaftaranPage />
   <ContactPage />
 </template>
