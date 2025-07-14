@@ -30,32 +30,34 @@ const navItems = ref<NavigationMenuItem[]>([
   {
     label: "Program",
     icon: "i-lucide-layers",
-    children: [
-      {
-        label: "Tahfizh",
-        icon: "i-lucide-book",
-        to: "/program/tahfizh",
-        description: "Program penguatan hafalan Qur'an.",
-      },
-      // {
-      //   label: "IT",
-      //   icon: "i-lucide-code",
-      //   to: "/it",
-      //   description: "Divisi teknologi dan pengembangan perangkat lunak.",
-      // },
-      // {
-      //   label: "Pertanian",
-      //   icon: "i-lucide-leaf",
-      //   to: "/pertanian",
-      //   description: "Divisi pertanian modern dan keberlanjutan.",
-      // },
-      {
-        label: "Bisnis",
-        icon: "i-lucide-briefcase",
-        to: "/program/bisnis",
-        description: "Program wirausaha dan pengembangan bisnis.",
-      },
-    ],
+    to: "/program",
+    description: "Program-program unggulan yang ditawarkan SIMQ.",
+    // children: [
+    //   {
+    //     label: "Tahfizh",
+    //     icon: "i-lucide-book",
+    //     to: "/program/tahfizh",
+    //     description: "Program penguatan hafalan Qur'an.",
+    //   },
+    //   // {
+    //   //   label: "IT",
+    //   //   icon: "i-lucide-code",
+    //   //   to: "/it",
+    //   //   description: "Divisi teknologi dan pengembangan perangkat lunak.",
+    //   // },
+    //   // {
+    //   //   label: "Pertanian",
+    //   //   icon: "i-lucide-leaf",
+    //   //   to: "/pertanian",
+    //   //   description: "Divisi pertanian modern dan keberlanjutan.",
+    //   // },
+    //   {
+    //     label: "Bisnis",
+    //     icon: "i-lucide-briefcase",
+    //     to: "/program/bisnis",
+    //     description: "Program wirausaha dan pengembangan bisnis.",
+    //   },
+    // ],
   },
   {
     label: "Jadwal Santri",

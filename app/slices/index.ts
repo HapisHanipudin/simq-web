@@ -14,6 +14,7 @@ export const components = defineSliceZoneComponents({
   hero_with_cta: defineAsyncComponent(() => import("./Jumbotron/index.vue")),
   kontak: defineAsyncComponent(() => import("./Kontak/index.vue")),
   media_text: defineAsyncComponent(() => import("./About/index.vue")),
+  programs: defineAsyncComponent(() => import("./Programs/index.vue")),
   tabbed_feature_list: defineAsyncComponent(
     () => import("./ProgramDivisi/index.vue"),
   ),
