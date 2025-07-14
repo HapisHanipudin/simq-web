@@ -1,5 +1,5 @@
 <template>
-  <div v-show="title === selectedTitle">
+  <template v-show="title === selectedTitle">
     <div :style="{ '--sub-program-count': `repeat(${page?.data.sub_program.length}, minmax(0, 1fr))` }" class="justify-center flex flex-wrap gap-2">
       <div v-for="item in page?.data.sub_program" class="shadow-lg rounded-2xl flex flex-col gap-4 px-6 py-4 w-[520px] border-[0.1px] border-gray-200">
         <h3 class="text-xl text-primary-600 font-bold">{{ item.sub_title }}</h3>
@@ -18,7 +18,7 @@
         <PrismicRichText :components="{ list: ProgramUl, listItem: ProgramLi }" :field="item.benefits" />
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts" setup>
