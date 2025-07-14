@@ -130,71 +130,6 @@ interface AboutDocumentData {
 export type AboutDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<Simplify<AboutDocumentData>, "about", Lang>;
 
-type FooterDocumentDataSlicesSlice = FooterSlice;
-
-/**
- * Content for Footer documents
- */
-interface FooterDocumentData {
-  /**
-   * Slice Zone field in *Footer*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: footer.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/slices
-   */
-  slices: prismic.SliceZone<FooterDocumentDataSlicesSlice> /**
-   * Meta Title field in *Footer*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: footer.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */;
-  meta_title: prismic.KeyTextField;
-
-  /**
-   * Meta Description field in *Footer*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: footer.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  meta_description: prismic.KeyTextField;
-
-  /**
-   * Meta Image field in *Footer*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: footer.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  meta_image: prismic.ImageField<never>;
-}
-
-/**
- * Footer document from Prismic
- *
- * - **API ID**: `footer`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type FooterDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<
-    Simplify<FooterDocumentData>,
-    "footer",
-    Lang
-  >;
-
 type HomeDocumentDataSlicesSlice = HeroWithCtaSlice;
 
 /**
@@ -504,71 +439,6 @@ export type PendaftaranDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithoutUID<
     Simplify<PendaftaranDocumentData>,
     "pendaftaran",
-    Lang
-  >;
-
-type ProgramDivisiDocumentDataSlicesSlice = TabbedFeatureListSlice;
-
-/**
- * Content for Program Divisi documents
- */
-interface ProgramDivisiDocumentData {
-  /**
-   * Slice Zone field in *Program Divisi*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: program_divisi.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/slices
-   */
-  slices: prismic.SliceZone<ProgramDivisiDocumentDataSlicesSlice> /**
-   * Meta Title field in *Program Divisi*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: program_divisi.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */;
-  meta_title: prismic.KeyTextField;
-
-  /**
-   * Meta Description field in *Program Divisi*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: program_divisi.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  meta_description: prismic.KeyTextField;
-
-  /**
-   * Meta Image field in *Program Divisi*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: program_divisi.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/fields/image
-   */
-  meta_image: prismic.ImageField<never>;
-}
-
-/**
- * Program Divisi document from Prismic
- *
- * - **API ID**: `program_divisi`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/content-modeling
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type ProgramDivisiDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<ProgramDivisiDocumentData>,
-    "program_divisi",
     Lang
   >;
 
@@ -907,13 +777,11 @@ export type VisiMisiDocument<Lang extends string = string> =
 
 export type AllDocumentTypes =
   | AboutDocument
-  | FooterDocument
   | HomeDocument
   | JadwalSantriDocument
   | KontakDocument
   | KontakkDocument
   | PendaftaranDocument
-  | ProgramDivisiDocument
   | ProgramsDocument
   | RootDocument
   | VisiMisiDocument;
@@ -1534,98 +1402,6 @@ export type ProgramsSlice = prismic.SharedSlice<
 >;
 
 /**
- * Item in *ProgramDivisi → Default → Primary → Tabs*
- */
-export interface TabbedFeatureListSliceDefaultPrimaryTabsItem {
-  /**
-   * Tab Icon field in *ProgramDivisi → Default → Primary → Tabs*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Cari icon di https://icon-sets.iconify.design/
-   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].icon
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  icon: prismic.KeyTextField;
-
-  /**
-   * Tab Label field in *ProgramDivisi → Default → Primary → Tabs*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].label
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  label: prismic.KeyTextField;
-
-  /**
-   * Tab Content field in *ProgramDivisi → Default → Primary → Tabs*
-   *
-   * - **Field Type**: Rich Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[].tab_content
-   * - **Documentation**: https://prismic.io/docs/fields/rich-text
-   */
-  tab_content: prismic.RichTextField;
-}
-
-/**
- * Primary content in *ProgramDivisi → Default → Primary*
- */
-export interface TabbedFeatureListSliceDefaultPrimary {
-  /**
-   * Title field in *ProgramDivisi → Default → Primary*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: Judul Halaman
-   * - **API ID Path**: tabbed_feature_list.default.primary.title
-   * - **Documentation**: https://prismic.io/docs/fields/text
-   */
-  title: prismic.KeyTextField;
-
-  /**
-   * Tabs field in *ProgramDivisi → Default → Primary*
-   *
-   * - **Field Type**: Group
-   * - **Placeholder**: *None*
-   * - **API ID Path**: tabbed_feature_list.default.primary.tabs[]
-   * - **Documentation**: https://prismic.io/docs/fields/repeatable-group
-   */
-  tabs: prismic.GroupField<
-    Simplify<TabbedFeatureListSliceDefaultPrimaryTabsItem>
-  >;
-}
-
-/**
- * Default variation for ProgramDivisi Slice
- *
- * - **API ID**: `default`
- * - **Description**: Standard tabbed display with a list of tabs and associated content for each tab.
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type TabbedFeatureListSliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<TabbedFeatureListSliceDefaultPrimary>,
-  never
->;
-
-/**
- * Slice variation for *ProgramDivisi*
- */
-type TabbedFeatureListSliceVariation = TabbedFeatureListSliceDefault;
-
-/**
- * ProgramDivisi Shared Slice
- *
- * - **API ID**: `tabbed_feature_list`
- * - **Description**: *None*
- * - **Documentation**: https://prismic.io/docs/slices
- */
-export type TabbedFeatureListSlice = prismic.SharedSlice<
-  "tabbed_feature_list",
-  TabbedFeatureListSliceVariation
->;
-
-/**
  * Item in *JadwalSantri → Default → Primary → Periods*
  */
 export interface TimetableListSliceDefaultPrimaryPeriodsItem {
@@ -1741,9 +1517,6 @@ declare module "@prismicio/client" {
       AboutDocument,
       AboutDocumentData,
       AboutDocumentDataSlicesSlice,
-      FooterDocument,
-      FooterDocumentData,
-      FooterDocumentDataSlicesSlice,
       HomeDocument,
       HomeDocumentData,
       HomeDocumentDataSlicesSlice,
@@ -1758,9 +1531,6 @@ declare module "@prismicio/client" {
       PendaftaranDocument,
       PendaftaranDocumentData,
       PendaftaranDocumentDataSlicesSlice,
-      ProgramDivisiDocument,
-      ProgramDivisiDocumentData,
-      ProgramDivisiDocumentDataSlicesSlice,
       ProgramsDocument,
       ProgramsDocumentData,
       ProgramsDocumentDataSubProgramItem,
@@ -1805,11 +1575,6 @@ declare module "@prismicio/client" {
       ProgramsSlice,
       ProgramsSliceVariation,
       ProgramsSliceDefault,
-      TabbedFeatureListSlice,
-      TabbedFeatureListSliceDefaultPrimaryTabsItem,
-      TabbedFeatureListSliceDefaultPrimary,
-      TabbedFeatureListSliceVariation,
-      TabbedFeatureListSliceDefault,
       TimetableListSlice,
       TimetableListSliceDefaultPrimaryPeriodsItem,
       TimetableListSliceDefaultPrimary,
